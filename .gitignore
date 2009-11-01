@@ -2,3 +2,4 @@ database.yml
 log/
 tmp/
 schema.rb
+*~

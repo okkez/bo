@@ -100,9 +100,39 @@ describe Item do
   describe "by_year" do
     before do
       Factory.factories.each{|f| Factory(f.first) }
+      Factory(:morning, :spent_on => 1.years.ago)
+      Factory(:lunch,   :spent_on => 1.years.ago)
+      Factory(:dinner,  :spent_on => 1.years.ago)
     end
-    it "total amount is 1770" do
+    it "total amount is 1770 (by_year)" do
       Item.tagged_with("食費", :on => :tags).by_year(Date.today).sum('amount').should == 1770
+    end
+    it "total amount is 3540 (all)" do
+      Item.tagged_with("食費", :on => :tags).sum('amount').should == 3540
+    end
+  end
+
+  describe "recent_n_months" do
+    before do
+      Factory.factories.each{|f| Factory(f.first) }
+      Factory(:morning, :spent_on => 3.months.ago)
+      Factory(:lunch,   :spent_on => 2.months.ago)
+      Factory(:dinner,  :spent_on => 1.months.ago)
+    end
+    it "total amount is 1770 (recent 0 month)" do
+      Item.tagged_with("食費", :on => :tags).recent_n_months(0).sum('amount').should == 1770
+    end
+    it "total amount is 2720 (recent 1 month)" do
+      Item.tagged_with("食費", :on => :tags).recent_n_months(1).sum('amount').should == 2720
+    end
+    it "total amount is 3240 (recent 2 month)" do
+      Item.tagged_with("食費", :on => :tags).recent_n_months(2).sum('amount').should == 3240
+    end
+    it "total amount is 3540 (recent 3 month)" do
+      Item.tagged_with("食費", :on => :tags).recent_n_months(3).sum('amount').should == 3540
+    end
+    it "total amount is 3540 (all)" do
+      Item.tagged_with("食費", :on => :tags).sum('amount').should == 3540
     end
   end
 

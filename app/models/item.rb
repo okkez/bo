@@ -10,4 +10,10 @@ class Item < ActiveRecord::Base
     last  = date.end_of_month
     { :conditions => ["? <= items.spent_on and items.spent_on <= ?", first, last] }
   }
+
+  named_scope :by_year, lambda{|date|
+    first = date.beginning_of_year
+    last  = date.end_of_year
+    { :conditions => ["? <= items.spent_on and items.spent_on <= ?", first, last] }
+  }
 end

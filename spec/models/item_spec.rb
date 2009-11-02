@@ -97,4 +97,13 @@ describe Item do
     end
   end
 
+  describe "by_year" do
+    before do
+      Factory.factories.each{|f| Factory(f.first) }
+    end
+    it "total amount is 1770" do
+      Item.tagged_with("食費", :on => :tags).by_year(Date.today).sum('amount').should == 1770
+    end
+  end
+
 end

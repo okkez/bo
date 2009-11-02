@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <%= google_jsapi_tag %>
+    <%= google_load_tag 'jquery', '1.3' %>
+    <%= google_load_tag 'jqueryui', '1.7' %>
+    <%= stylesheet_link_tag 'bo' %>
+    <title><%= controller.controller_name %> : <%= controller.action_name %></title>
+    <script type="text/javascript">
+    //<![CDATA[
+    $(function(){
+      if (navigator.cookieEnabled) {
+        $("#cookie_check").hide();
+      } else {
+        $("#cookie_check").show();
+      }
+    });
+    document.observe("dom:loaded", function(e){
+      var elem = $("cookie_check");
+      if (navigator.cookieEnabled) {
+        elem.hide();
+      } else {
+        elem.show();
+      }
+    });
+    //]]>
+    </script>
+  </head>
+  <body>
+    <div id="cookie_check" style="display:none">
+      <%=h _("Please enable cookie.") %>
+    </div>
+    <noscript>
+      <%=h _("Please enable javascript and cookie.") %>
+    </noscript>
+    <div class="notice"><p><%= flash[:notice] %></p></div>
+    <div class="error"><p><%= flash[:error] %></p></div>
+
+    <%= yield %>
+
+  </body>
+</html>

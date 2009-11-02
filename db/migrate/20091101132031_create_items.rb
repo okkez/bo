@@ -2,6 +2,7 @@ class CreateItems < ActiveRecord::Migration
   def self.up
     create_table :items do |t|
       t.string :title
+      t.date :spent_on, :null => false
       t.text :note
       t.integer :amount, :null => false
       t.timestamps

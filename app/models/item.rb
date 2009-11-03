@@ -6,6 +6,8 @@ class Item < ActiveRecord::Base
 
   acts_as_taggable_on :tags
 
+  default_scope :order => 'spent_on'
+
   # TODO order オプションを付ける
   named_scope :by_month, lambda{|date|
     first = date.beginning_of_month

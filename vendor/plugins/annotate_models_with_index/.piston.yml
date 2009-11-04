@@ -1,0 +1,8 @@
+--- 
+format: 1
+handler: 
+  commit: af38e2529e78665a73845447f9269d60a484e606
+  branch: master
+lock: false
+repository_class: Piston::Git::Repository
+repository_url: git://github.com/okkez/annotate_models_with_index.git

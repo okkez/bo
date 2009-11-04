@@ -3,5 +3,6 @@ class Event < ActiveRecord::Base
 
   validates_presence_of :spent_on
 
+  belongs_to :user
   has_many :items, :dependent => :destroy
 end

@@ -7,7 +7,7 @@ class Item < ActiveRecord::Base
 
   acts_as_taggable_on :tags
 
-  default_scope :include => :event
+  default_scope :include => { :event => :user }
 
   named_scope :by_month, lambda{|date|
     first = date.beginning_of_month

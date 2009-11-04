@@ -7,7 +7,7 @@
     <th>入金</th>
     <th>出金</th>
   </tr>
-  <%- Item.all(:order => 'events.spent_on, items.event_id, items.founds_in nulls last').each do |item| -%>
+  <%- @items.each do |item| -%>
     <tr>
       <td><%=h item.event.spent_on %></td>
       <td><%=h item.event.title %><%= item.event_id %></td>

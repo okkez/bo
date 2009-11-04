@@ -1,2 +1,20 @@
 <h1>Items#list</h1>
-<p>Find me in app/views/items/list.html.erb</p>
+<table border="1">
+  <tr>
+    <th>日付</th>
+    <th>タイトル</th>
+    <th>タグ</th>
+    <th>入金</th>
+    <th>出金</th>
+  </tr>
+  <%- Item.all(:order => 'events.spent_on, items.event_id, items.founds_in nulls last').each do |item| -%>
+    <tr>
+      <td><%=h item.event.spent_on %></td>
+      <td><%=h item.event.title %><%= item.event_id %></td>
+      <td><%=h item.tag_list %></td>
+      <td><%=h item.founds_in %></td>
+      <td><%=h item.founds_out %></td>
+    </tr>
+  <%- end -%>
+</table>
+

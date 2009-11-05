@@ -1,6 +1,7 @@
 class Event < ActiveRecord::Base
   default_scope :order => 'spent_on'
 
+  validates_presence_of :user_id
   validates_presence_of :spent_on
 
   belongs_to :user

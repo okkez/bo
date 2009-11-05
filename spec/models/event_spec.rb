@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Event do
   before :each do
     @valid_attributes = {
+      :user_id  => 0,
       :title    => 'title',
       :spent_on => Date.today,
       :note     => 'note',

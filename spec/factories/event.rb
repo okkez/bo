@@ -1,5 +1,6 @@
 
 Factory.define :event do |e|
+  e.user_id 0
   e.spent_on Date.today
   e.title "morning"
   e.note "note"

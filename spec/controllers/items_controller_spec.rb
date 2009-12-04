@@ -11,7 +11,7 @@ describe ItemsController do
   describe "GET 'index'" do
     it "should be successful" do
       get 'index'
-      response.should be_success
+      response.should be_redirect
     end
   end
 

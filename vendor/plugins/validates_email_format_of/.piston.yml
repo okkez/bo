@@ -1,8 +1,0 @@
---- 
-format: 1
-handler: 
-  commit: 46a4244c51ce399dad71073c2425ce7b8988866b
-  branch: master
-lock: false
-repository_class: Piston::Git::Repository
-repository_url: http://github.com/alexdunae/validates_email_format_of.git

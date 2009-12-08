@@ -3,8 +3,8 @@ require 'spec_helper'
 describe User do
   before(:each) do
     @valid_attributes = {
-      :name  => 'name',
-      :email => 'name@example.com',
+      :nickname  => 'nickname',
+      :email     => 'nickname@example.com',
     }
     @klass = User
     @basic = @klass.new(@valid_attributes)

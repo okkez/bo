@@ -26,7 +26,7 @@ describe Event do
       }
     end
     it "is valid" do
-      @items.all?(&:valid?)
+      @items.all?(&:valid?).should be_true
     end
   end
 

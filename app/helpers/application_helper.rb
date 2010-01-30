@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   include MultiAuthHelper
@@ -7,10 +8,11 @@ module ApplicationHelper
   end
 
   def google_load_tag(name, version)
-    '<script type="text/javascript">google.load("#{name}", "#{version}");</script>'
+    %Q|<script type="text/javascript">google.load("#{name}", "#{version}");</script>|
   end
 
   def current_user
     @login_user if defined?(@login_user)
   end
+
 end

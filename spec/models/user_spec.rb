@@ -10,44 +10,28 @@ describe User do
     @basic = @klass.new(@valid_attributes)
   end
 
-  it "should create a new instance given valid attributes" do
-    User.create!(@valid_attributes)
+  describe "basic" do
+    it{ @basic.should be_valid }
   end
 
   describe "email is blank" do
-    before do
-      @basic.email = ''
-    end
-    it "is valid" do
-      @basic.should be_valid
-    end
+    subject{ @basic.email = ''; @basic }
+    it{ should be_valid }
   end
 
   describe "email is nil" do
-    before do
-      @basic.email = nil
-    end
-    it "is valid" do
-      @basic.should be_valid
-    end
+    subject{ @basic.email = nil; @basic }
+    it{ should be_valid }
   end
 
   describe "email is bad format" do
-    before do
-      @basic.email = 'a..b@example.com'
-    end
-    it "is not valid" do
-      @basic.should_not be_valid
-    end
+    subject{ @basic.email = 'a..b@example.com'; @basic }
+    it{ should_not be_valid }
   end
 
   describe "association" do
-    before do
-      @user = Factory(:test)
-    end
-    it "have 3 events" do
-      @user.events.should have(3).events
-    end
+    before{ @user = Factory(:test) }
+    it{ @user.events.should have(3).events }
     describe "destroy user" do
       before do
         @user.destroy

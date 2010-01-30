@@ -8,7 +8,7 @@
 #   Major.create(:name => 'Daley', :city => cities.first)
 
 ActiveRecord::Base.transaction do
-  user = User.create!(:nickname => 'nickname', :email => 'nickname@example.com')
+  user = User.create!(:nickname => 'nickname', :email => 'user@example.com')
   hashed_password = EmailCredential.create_hashed_password("monkey")
   e = user.email_credentials.build(:email            => user.email,
                                    :hashed_password  => hashed_password,

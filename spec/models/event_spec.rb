@@ -12,8 +12,8 @@ describe Event do
     @basic = @klass.new(@valid_attributes)
   end
 
-  it "should create a new instance given valid attributes" do
-    Event.create!(@valid_attributes)
+  describe "basic" do
+    it{ @basic.should be_valid }
   end
 
   describe "all factories" do
@@ -30,12 +30,8 @@ describe Event do
     end
   end
 
-  describe "spent_on is empty" do
-    before do
-      @basic.spent_on = nil
-    end
-    it "is not valid" do
-      @basic.should_not be_valid
-    end
+  describe "spent_on is nil" do
+    subject{ @basic.spent_on = nil; @basic }
+    it{ should_not be_valid }
   end
 end

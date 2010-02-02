@@ -9,16 +9,8 @@ describe ItemsController do
 
 
   describe "GET 'index'" do
-    it "should be successful" do
-      get 'index'
-      response.should be_redirect
-    end
+    before{ get 'index' }
+    it{ response.should be_success }
   end
 
-  describe "GET 'list'" do
-    it "should be successful" do
-      get 'list'
-      response.should be_success
-    end
-  end
 end

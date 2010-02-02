@@ -15,7 +15,8 @@ module MailRegister
 
     def entry(mail)
       token = mail.to.first.gsub(/bo\+(.+?)@okkez\.net/){ $1 }
-      user = Token.find_by_token_and_purpose(token, 'mail').user
+      token = Token.find_by_token_and_purpose(token, 'mail')
+      user = token.try(:user)
       return unless user
       subject = NKF.nkf('-w', Base64.decode64(mail.subject))
       body = NKF.nkf('-w', Base64.decode64(mail.body))

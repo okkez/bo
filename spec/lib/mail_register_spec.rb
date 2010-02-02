@@ -4,7 +4,7 @@ require 'spec_helper'
 describe MailRegister do
   before do
     @basic = TMail::Mail.new
-    @basic.to = "bo+#{'1'*20}@gmail.com"
+    @basic.to = "bo+#{'2'*20}@okkez.net"
     @basic.from = 'Test <admin@example.com>'
     @basic.subject = 'test mail'
     @basic.date = Time.now
@@ -14,6 +14,7 @@ describe MailRegister do
   end
 
   describe 'basic' do
+    before{ Factory(:user_with_token) }
     it do
       lambda{ MailRegister.entry(@basic) }.should_not raise_error
     end

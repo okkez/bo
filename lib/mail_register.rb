@@ -19,6 +19,7 @@ module MailRegister
       user = token.try(:user)
       return unless user
       subject = NKF.nkf('-w', mail.subject)
+      # TODO 入力文字コードをちゃんと設定する
       body = NKF.nkf('-w', Base64.decode64(mail.body))
       begin
         ActiveRecord::Base.transaction do

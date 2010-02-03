@@ -7,9 +7,9 @@ class EventsController < ApplicationController
   def index
     user = current_user
     if user
-      @events = user.events(:order => 'spent_on ASC')
+      @events = user.events(:order => 'spent_on ASC').paginate(:page => params[:page])
     else
-      @events = []
+      @events = [].paginate(:page => params[:page])
     end
   end
 

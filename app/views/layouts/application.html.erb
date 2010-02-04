@@ -10,6 +10,7 @@
     <%= google_jsapi_tag %>
     <%= google_load_tag 'jquery', '1.3' %>
     <%= google_load_tag 'jqueryui', '1.7' %>
+    <%= javascript_include_tag 'application' %>
     <%= yield :script %>
     <%= stylesheet_link_tag 'base' %>
     <%= stylesheet_link_tag 'bo' %>
@@ -67,5 +68,8 @@
 		
 	  </div>
     </div>
+    <%- javascript_tag do -%>
+      justifyHeight();
+    <%- end -%>
   </body>
 </html>

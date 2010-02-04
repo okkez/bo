@@ -20,16 +20,18 @@ ActiveRecord::Base.transaction do
     event = user.events.create!(:spent_on => (Date.today - n),
                                 :user     => user,
                                 :title    => "event #{n}",
-                                :note     => "note" * 100)
+                                :note     => "note " * 100)
+    sum = 0
     5.times do |m|
       val = rand(10000) + 1000
       item1 = event.items.create!(:founds_in  => val)
       item1.tag_list = "食費"
       item1.save!
-      item2 = event.items.create!(:founds_out => val)
-      item2.tag_list = "現金"
-      item2.save!
+      sum += val
     end
+    item2 = event.items.create!(:founds_out => sum)
+    item2.tag_list = "現金"
+    item2.save!
   end
 
 end

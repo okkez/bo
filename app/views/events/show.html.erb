@@ -2,3 +2,32 @@
 
 <h1><%= @title %></h1>
 
+<table>
+  <tbody>
+    <tr><th>日</th><td><%=h @event.spent_on %></td></tr>
+    <tr><th>タイトル</th><td><%=h @event.title %></td></tr>
+    <tr><th>ノート</th><td><%=h @event.note %></td></tr>
+  </tbody>
+</table>
+
+<p>
+  <%= link_to 'Back', events_path %>
+  <%= link_to 'Edit', edit_event_path(@event) %>
+</p>
+
+<hr />
+
+<h2>アイテム</h2>
+
+<table>
+  <thead><tr><th>タグ</th><th>入金</th><th>出金</th></tr></thead>
+  <tbody>
+    <%- @event.items.each do |item| -%>
+      <tr>
+        <td><%=h item.tag_list %></td>
+        <td><%=h item.founds_in %></td>
+        <td><%=h item.founds_out %></td>
+      </tr>
+    <%- end -%>
+  </tbody>
+</table>

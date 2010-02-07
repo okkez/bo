@@ -1,0 +1,59 @@
+<h1><%= @title %></h1>
+
+<%= error_messages_for :event %>
+
+<%- form_for @event do |event_form| -%>
+  <%- @item_template = generate_template(event_form, :items) -%>
+  <table id="event">
+    <tbody>
+      <tr><th>日</th><td><%= event_form.text_field :spent_on %></td></tr>
+      <tr><th>タイトル</th><td><%= event_form.text_field :title %></td></tr>
+      <tr><th>ノート</th><td><%= event_form.text_area :note, :size => "60x3" %></td></tr>
+    </tbody>
+  </table>
+
+  <table id="items">
+    <thead><tr><th>タグ</th><th>入金</th><th>出金</th><th>&nbsp;</th></tr></thead>
+    <tbody>
+      <%- event_form.fields_for :items do |item_form| -%>
+        <%= render :partial => 'item', :locals => { :f => item_form } %>
+      <%- end -%>
+    </tbody>
+    <tfoot>
+      <tr><td colspan="4"><%= link_to "Add a item", "#item", :class => "add_item", :rel => "tasks" %></td></tr>
+    </tfoot>
+  </table>
+  <p><%= event_form.submit %></p>
+<%- end -%>
+
+<p>
+  <%= link_to 'Back', events_path %>
+  <% unless @event.new_record? -%>
+    <%= link_to 'Destroy', event_path(@event), :confirm => "Are you sure?", :method => :delete %>
+  <% end -%>
+</p>
+
+<%- content_for :script do -%>
+  <%- javascript_tag do -%>
+    jQuery(function($){
+      $.datepicker.setDefaults($.datepicker.regional['ja']);
+      $("#event_spent_on").datepicker({
+        dateFormat: "yy-mm-dd",
+      });
+      var item = "<%= @item_template %>";
+      $("a.add_item").click(function(event){
+        $("table#items tbody").append(replace_ids(item)).children("tr:last").click(function(event){
+          $(event.target).parent().parent().remove();
+          justifyHeight();
+        });
+        justifyHeight();
+      });
+      $("a.remove").click(function(event){
+        $(event.target).parent().parent().hide();
+        $("input[type=hidden]", $(event.target).parent()).val(1);
+        justifyHeight();
+      });
+    });
+  <%- end -%>
+<%- end -%>
+

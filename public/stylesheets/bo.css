@@ -8,3 +8,8 @@ table, tr, th, td {
 #navigation li {
   display: inline;
 }
+
+/* jQuery UI を 1.8 にあげたら消す */
+.ui-datepicker-year:after {
+  content: "年";
+}

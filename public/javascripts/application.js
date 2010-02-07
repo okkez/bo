@@ -18,3 +18,7 @@ var justifyHeight = function(){
     });
 };
 
+var replace_ids = function(s){
+  var new_id = new Date().getTime();
+  return s.replace(/NEW_RECORD/g, new_id);
+};

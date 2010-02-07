@@ -2,15 +2,32 @@
 
 <h1><%= @title %></h1>
 
-<%- form_for @event do |f| -%>
-<table>
-  <tbody>
-    <tr><th>日</th><td><%= f.text_field :spent_on %></td></tr>
-    <tr><th>タイトル</th><td><%= f.text_field :title %></td></tr>
-    <tr><th>ノート</th><td><%= f.text_area :note %></td></tr>
-  </tbody>
-</table>
-<p><%= f.submit %></p>
+<%- form_for @event do |event_form| -%>
+  <%- @item_template = generate_template(event_form, :items) -%>
+  <table id="event">
+    <tbody>
+      <tr><th>日</th><td><%= event_form.text_field :spent_on %></td></tr>
+      <tr><th>タイトル</th><td><%= event_form.text_field :title %></td></tr>
+      <tr><th>ノート</th><td><%= event_form.text_area :note %></td></tr>
+    </tbody>
+  </table>
+
+  <hr />
+
+  <h2>アイテム</h2>
+
+  <table id="items">
+    <thead><tr><th>タグ</th><th>入金</th><th>出金</th><th>&nbsp;</th></tr></thead>
+    <tbody>
+      <%- event_form.fields_for :items do |item_form| -%>
+        <%= render :partial => 'item', :locals => { :f => item_form } %>
+      <%- end -%>
+    </tbody>
+    <tfoot>
+      <tr><td colspan="4"><%= link_to "Add a item", "#item", :class => "add_item", :rel => "tasks" %></td></tr>
+    </tfoot>
+  </table>
+  <p><%= event_form.submit %></p>
 <%- end -%>
 
 <p>
@@ -25,6 +42,20 @@
       $("#event_spent_on").datepicker({
         dateFormat: "yy-mm-dd",
       });
+      var item = "<%= @item_template %>";
+      $("a.add_item").click(function(event){
+        $("table#items tbody").append(replace_ids(item)).children("tr:last").click(function(event){
+          $(event.target).parent().parent().remove();
+          justifyHeight();
+        });
+        justifyHeight();
+      });
+      $("a.remove").click(function(event){
+        $(event.target).parent().parent().hide();
+        $("input[type=hidden]", $(event.target).parent()).val(1);
+        justifyHeight();
+      });
     });
   <%- end -%>
 <%- end -%>
+

@@ -23,4 +23,22 @@ class Event < ActiveRecord::Base
   has_many :items, :dependent => :destroy
   accepts_nested_attributes_for :items, :allow_destroy => true,
   :reject_if => lambda{|attr| attr['tag_list'].blank? }
+
+  named_scope :by_month, lambda{|date|
+    first = date.beginning_of_month
+    last  = date.end_of_month
+    { :conditions => ["? <= spent_on and spent_on <= ?", first, last] }
+  }
+
+  named_scope :by_year, lambda{|date|
+    first = date.beginning_of_year
+    last  = date.end_of_year
+    { :conditions => ["? <= spent_on and spent_on <= ?", first, last] }
+  }
+
+  named_scope :recent_n_months, lambda{|n|
+    first = (Date.today << n).beginning_of_month
+    last  = Date.today.end_of_month
+    { :conditions => ["? <= spent_on and spent_on <= ?", first, last] }
+  }
 end

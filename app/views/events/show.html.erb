@@ -10,15 +10,6 @@
   </tbody>
 </table>
 
-<p>
-  <%= link_to 'Back', events_path %>
-  <%= link_to 'Edit', edit_event_path(@event) %>
-</p>
-
-<hr />
-
-<h2>アイテム</h2>
-
 <table>
   <thead><tr><th>タグ</th><th>入金</th><th>出金</th></tr></thead>
   <tbody>
@@ -31,3 +22,8 @@
     <%- end -%>
   </tbody>
 </table>
+
+<p>
+  <%= link_to 'Back', events_path %>
+  <%= link_to 'Edit', edit_event_path(@event) %>
+</p>

@@ -1,0 +1,30 @@
+<%- @title = '編集' -%>
+
+<h1><%= @title %></h1>
+
+<%- form_for @event do |f| -%>
+<table>
+  <tbody>
+    <tr><th>日</th><td><%= f.text_field :spent_on %></td></tr>
+    <tr><th>タイトル</th><td><%= f.text_field :title %></td></tr>
+    <tr><th>ノート</th><td><%= f.text_area :note %></td></tr>
+  </tbody>
+</table>
+<p><%= f.submit %></p>
+<%- end -%>
+
+<p>
+  <%= link_to 'Back', events_path %>
+  <%= link_to 'Destroy', event_path(@event), :confirm => "Are you sure?", :method => :delete %>
+</p>
+
+<%- content_for :script do -%>
+  <%- javascript_tag do -%>
+    jQuery(function($){
+      $.datepicker.setDefaults($.datepicker.regional['ja']);
+      $("#event_spent_on").datepicker({
+        dateFormat: "yy-mm-dd",
+      });
+    });
+  <%- end -%>
+<%- end -%>

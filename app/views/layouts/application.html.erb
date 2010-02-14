@@ -12,23 +12,22 @@
     <%= google_load_tag 'jqueryui', '1.7' %>
     <%= javascript_include_tag 'jquery.ui.datepicker-ja' %>
     <%= javascript_include_tag 'application' %>
-    <%= yield :script %>
+    <%= yield :head %>
+    <%- javascript_tag do -%>
+      jQuery(function($){
+        if (navigator.cookieEnabled) {
+          $("#cookie_check").hide();
+        } else {
+          $("#cookie_check").show();
+        }
+        <%= yield :script %>
+      });
+    <%- end -%>
     <%= stylesheet_link_tag 'base' %>
     <%= stylesheet_link_tag 'bo' %>
     <%= stylesheet_link_tag 'jquery-ui-1.7.2.custom' %>
     <%= yield :multi_auth_additional_head %>
     <title><%= @title %></title>
-    <script type="text/javascript">
-    //<![CDATA[
-    jQuery(function($){
-      if (navigator.cookieEnabled) {
-        $("#cookie_check").hide();
-      } else {
-        $("#cookie_check").show();
-      }
-    });
-    //]]>
-    </script>
   </head>
   <body>
     <div id="wrapper">

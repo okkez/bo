@@ -3,7 +3,7 @@ module EventsHelper
   # http://github.com/alloy/complex-form-examples
   def remove_link_unless_new_record(fields)
     out = ''
-    out << fields.hidden_field(:_delete)  unless fields.object.new_record?
+    out << fields.hidden_field(:_destroy)  unless fields.object.new_record?
     out << link_to("Remove", "##{fields.object.class.name.underscore}", :class => 'remove')
     out
   end
@@ -34,6 +34,17 @@ module EventsHelper
 
   def generate_template(form_builder, method, options = {})
     escape_javascript generate_html(form_builder, method, options)
+  end
+
+  def tag_links(node)
+    result = []
+    result << link_to(node.name, "#")
+    unless node.children.empty?
+      node.children.each do |v|
+        result.push(tag_links(v))
+      end
+    end
+    result.flatten
   end
 
 end

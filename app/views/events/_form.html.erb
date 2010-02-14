@@ -33,6 +33,20 @@
   <% end -%>
 </p>
 
+<div>
+  <div id="dialog">
+    <%= text_field_tag 'tag_list_helper', nil, :size => 50 %>
+    <div class="tags">
+      <%- Keyword.roots.each do |root| -%>
+        <div>
+          <%- tag_links(root).each do |link| -%>
+            <span class="tag"><%= link %></span>
+          <%- end -%>
+        </div>
+      <%- end -%>
+    </div>
+  </div>
+</div>
 <%- content_for :script do -%>
   <%- javascript_tag do -%>
     jQuery(function($){
@@ -41,17 +55,67 @@
         dateFormat: "yy-mm-dd",
       });
       var item = "<%= @item_template %>";
+      <%# アイテム追加 %>
       $("a.add_item").click(function(event){
-        $("table#items tbody").append(replace_ids(item)).children("tr:last").click(function(event){
+        var tr = $(replace_ids(item));
+        $("table#items tbody").append(tr).children("tbody tr:last a").click(function(event){
           $(event.target).parent().parent().remove();
           justifyHeight();
         });
+        $("table#items tbody tr:last input.tag_list").focus(function(event){
+          $.data($("#dialog")[0], "target", $(event.target).attr("id"));
+          $("#tag_list_helper").val($(event.target).val());
+          $("#dialog").dialog("open");
+        });
         justifyHeight();
       });
+      <%# 削除リンク %>
       $("a.remove").click(function(event){
         $(event.target).parent().parent().hide();
         $("input[type=hidden]", $(event.target).parent()).val(1);
         justifyHeight();
+      });
+      <%# タグをクリックしたらテキストボックスに追加する %>
+      $("#dialog .tags .tag a").click(function(event){
+        var tags = $("#tag_list_helper").val().split(" ");
+        var text = $(event.target).text();
+        if(tags.indexOf(text) >= 0){
+          $(event.target).parent().removeClass("selected");
+          tags = tags.filter(function(val, index){ return text != val });
+        } else {
+          $(event.target).parent().addClass("selected");
+          tags.push(text);
+        }
+        $("#tag_list_helper").val($.unique(tags).join(" "));
+      });
+      $("#dialog").dialog({
+        title: "タグ選択",
+        width: 500,
+        autoOpen: false,
+        modal: true,
+        buttons: {
+          "Cancel" : function(){
+            $(this).dialog('close');
+          },
+          "Ok" : function(){
+            $("#"+$.data(this, "target")).val($("#tag_list_helper").val());
+            $(this).dialog('close');
+          },
+        },
+      });
+      <%# ダイアログを開く %>
+      $("input.tag_list").focus(function(event){
+        var target = $(event.target);
+        $.data($("#dialog")[0], "target", target.attr("id"));
+        var tags = target.val();
+        $("#tag_list_helper").val(tags);
+        tags = tags.split(" ");
+        $.each($("#dialog div.tags span.tag"), function(index, val){
+          if (tags.indexOf($(val).text()) >= 0){
+            $(val).addClass("selected");
+          }
+        });
+        $("#dialog").dialog("open");
       });
     });
   <%- end -%>

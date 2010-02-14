@@ -25,29 +25,59 @@ describe Item do
     end
   end
 
-  describe "is empty" do
-    subject{ @klass.new }
-    it{ should be_valid }
+  describe "basic" do
+    it{ @basic.should be_valid }
   end
 
-  describe "founds_in is empty" do
-    subject{ @basic.founds_in = nil; @basic }
-    it{ should be_valid }
-  end
+  describe "validation" do
+    describe "is empty" do
+      subject{ @klass.new }
+      it{ should be_valid }
+    end
 
-  describe "founds_in is zero" do
-    subject{ @basic.founds_in = 0; @basic }
-    it{ should_not be_valid }
-  end
+    describe "founds_in" do
+      describe " is empty" do
+        subject{ @basic.founds_in = nil; @basic }
+        it{ should be_valid }
+      end
 
-  describe "founds_in is negative value" do
-    subject{ @basic.founds_in = -1; @basic }
-    it{ should_not be_valid }
-  end
+      describe " is zero" do
+        subject{ @basic.founds_in = 0; @basic }
+        it{ should_not be_valid }
+      end
 
-  describe "founds_in is not integer" do
-    subject{ @basic.founds_in = 1.5; @basic }
-    it{ should_not be_valid }
+      describe " is negative value" do
+        subject{ @basic.founds_in = -1; @basic }
+        it{ should_not be_valid }
+      end
+
+      describe " is not integer" do
+        subject{ @basic.founds_in = 1.5; @basic }
+        it{ should_not be_valid }
+      end
+    end
+
+    describe "founds_out" do
+      describe " is empty" do
+        subject{ @basic.founds_out = nil; @basic }
+        it{ should be_valid }
+      end
+
+      describe " is zero" do
+        subject{ @basic.founds_out = 0; @basic }
+        it{ should_not be_valid }
+      end
+
+      describe " is negative value" do
+        subject{ @basic.founds_out = -1; @basic }
+        it{ should_not be_valid }
+      end
+
+      describe " is not integer" do
+        subject{ @basic.founds_out = 1.5; @basic }
+        it{ should_not be_valid }
+      end
+    end
   end
 
   describe "acts_as_taggable_on" do

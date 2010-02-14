@@ -15,6 +15,13 @@ table, tr, th, td {
   display: inline;
 }
 
+span.tag.selected {
+  background-color: #6495ED;
+}
+span.tag a {
+  text-decoration: none;
+}
+
 /* jQuery UI を 1.8 にあげたら消す */
 .ui-datepicker-year:after {
   content: "年";

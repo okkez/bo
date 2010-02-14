@@ -23,15 +23,24 @@ class Item < ActiveRecord::Base
 
   acts_as_taggable_on :tags
 
+  before_save :update_tags
+
   private
 
+  def keywords
+    self.tag_list.map{|tag| Keyword.find_by_name(tag) }.compact
+  end
+
   def validates_tags
-    keywords = self.tag_list.map{|tag| Keyword.find_by_name(tag) }.compact
     return if keywords.empty?
     roots = keywords.map{|k| k.root.id }
     unless roots.uniq.size == 1
       errors.add_to_base("矛盾するタグは登録できません")
     end
+  end
+
+  def update_tags
+    self.tag_list = (self.tag_list + keywords.map(&:ancestors).flatten.map(&:name)).uniq.join(" ")
   end
 
 end

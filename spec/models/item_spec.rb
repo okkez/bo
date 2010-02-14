@@ -120,4 +120,19 @@ describe Item do
     end
   end
 
+  describe "callback" do
+    describe "before_save" do
+      before do
+        cost = Keyword.create!(:name => "費用")
+        cost.children.create!(:name => "食費")
+        assets = Keyword.create!(:name => "資産")
+        @target = Item.create(:founds_in => 200)
+        @target.tag_list = "食費"
+        @target.save!
+      end
+      it{ @target.tag_list.should include("費用", "食費") }
+      it{ @target.should be_valid }
+    end
+  end
+
 end

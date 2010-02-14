@@ -68,12 +68,21 @@ ActiveRecord::Base.transaction do
    ["投資", ["委託売買口座",
              ["オープンエンド型投資信託", "マーケット指標", "株式", "債権"]]],
    ["流動資産", ["現金", "当座預金", "普通預金"]],
-   ["収益", ["その他の収入", "ボーナス", "給与", "贈与収入",
-             ["利息収入", ["その他の利息", "当座預金利息", "普通預金利息"]]]],
-   ["収入", ["配当収入", ["利息収入", ["債権利息"]]]],
-   ["純資産", ["開始残高"]]
   ].each do |w|
     add_child_keyword(assets, w)
+  end
+  earnings = root.children.create!(:name => "収益")
+  [
+   "その他の収入", "ボーナス", "給与", "贈与収入",
+   ["利息収入", ["その他の利息", "当座預金利息", "普通預金利息"]]
+  ].each do |w|
+    add_child_keyword(earnings, w)
+  end
+  net_assets = root.children.create!(:name => "純資産")
+  [
+   "開始残高"
+  ].each do |w|
+    add_child_keyword(net_assets, w)
   end
 end
 

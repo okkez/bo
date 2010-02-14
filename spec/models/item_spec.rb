@@ -78,6 +78,28 @@ describe Item do
         it{ should_not be_valid }
       end
     end
+
+    describe "tags" do
+      before do
+        cost = Keyword.create!(:name => "費用")
+        cost.children.create!(:name => "食費")
+        assets = Keyword.create!(:name => "資産")
+      end
+      describe "valid tags" do
+        before do
+          @target = Item.create!(:founds_in => 100)
+          @target.tag_list = "食費"
+        end
+        it{ @target.should be_valid }
+      end
+      describe "invalid tags" do
+        before do
+          @target = Item.create!(:founds_in => 100)
+          @target.tag_list = "食費 資産"
+        end
+        it{ @target.should_not be_valid }
+      end
+    end
   end
 
   describe "acts_as_taggable_on" do

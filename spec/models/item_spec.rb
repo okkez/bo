@@ -66,29 +66,6 @@ describe Item do
         Item.tagged_with("食費", :on => :tags).sum('founds_in').should == 5310
       end
     end
-    describe "total founds_in by_month" do
-      it do
-        Item.tagged_with("食費", :on => :tags).by_month(Date.today).sum('founds_in').should == 1770
-      end
-    end
-    describe "total founds_in by_year" do
-      it do
-        pending "時期によって失敗する"
-        Item.tagged_with("食費", :on => :tags).by_year(Date.today).sum('founds_in').should == 3540
-      end
-    end
-    [
-     [0, 1770],
-     [1, 2720],
-     [2, 3240],
-     [3, 3540],
-    ].each do |n, expected|
-      describe "total founds_in by recent #{n} month" do
-        it do
-          Item.tagged_with("食費", :on => :tags).recent_n_months(n).sum('founds_in').should == expected
-        end
-      end
-    end
   end
 
 end

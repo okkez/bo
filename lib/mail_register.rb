@@ -7,7 +7,7 @@ module MailRegister
 
   class << self
     def run
-      m = MailRegister.new
+      m = MailReceiver.new
       m.unseen(true) do |mail|
         entry(mail)
       end

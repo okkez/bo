@@ -41,4 +41,8 @@ class Event < ActiveRecord::Base
     last  = Date.today.end_of_month
     { :conditions => ["? <= spent_on and spent_on <= ?", first, last] }
   }
+
+  named_scope :by_range, lambda{|first, last|
+    { :conditions => ["? <= spent_on and spent_on <= ?", first, last] }
+  }
 end

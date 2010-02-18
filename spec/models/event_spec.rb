@@ -68,5 +68,16 @@ describe Event do
       end
       it{ Event.recent_n_months(3).should have(3).events }
     end
+    describe "by_range" do
+      before do
+        Factory(:event, :spent_on => Date.today.beginning_of_month)
+        Factory(:event, :spent_on => Date.today - 1)
+        Factory(:event, :spent_on => Date.today)
+        Factory(:event, :spent_on => Date.today + 1)
+        Factory(:event, :spent_on => Date.today + 2)
+        Factory(:event, :spent_on => Date.today.end_of_month)
+      end
+      it{ Event.by_range(Date.today-1, Date.today+2).should have(4).events }
+    end
   end
 end

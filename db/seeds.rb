@@ -28,39 +28,6 @@ ActiveRecord::Base.transaction do
                                    :activated_at     => Time.now)
   e.save!
 
-  10.times do |n|
-    event = user.events.create!(:spent_on => (Date.today - n),
-                                :user     => user,
-                                :title    => "event #{n}",
-                                :note     => "note " * 100)
-    sum = 0
-    5.times do |m|
-      val = rand(10000) + 1000
-      item1 = event.items.create!(:founds_in  => val)
-      item1.tag_list = "食費"
-      item1.save!
-      sum += val
-    end
-    item2 = event.items.create!(:founds_out => sum)
-    item2.tag_list = "現金"
-    item2.save!
-  end
-
-  cost = Keyword.create!(:name => "費用")
-  [
-   "その他", "オンラインサービス", "クリーニング", "ケーブルテレビ",
-   "コンピュータ", "プロバイダ", "委託手数料", "衣料品", "医療費",
-   "家賃", "教育", "銀行手数料",
-   ["娯楽", ["ゲーム", "リクリエーション", "音楽", "映画", "旅行"]],
-   "交通機関", ["公共料金", ["ガス", "ゴミ収集", "水道", "電気"]],
-   "購読", ["自動車", ["ガソリン", "修理維持", "駐車場", "通行料"]],
-   "趣味", "書籍", "消耗品", "食費",
-   ["税金", ["その他の税", "健康保険", "公的年金", "国税", "地方税"]],
-   "贈答", "調整", "電話料金", "日用品", ["勉強会", ["懇親会", "参加費"]],
-   ["保険", ["賃貸住宅保険", "医療保険", "自動車保険", "生命保険"]],
-  ].each do |w|
-    add_child_keyword(cost, w)
-  end
   assets = Keyword.create!(:name => "資産")
   [
    ["投資", ["委託売買口座",
@@ -82,11 +49,44 @@ ActiveRecord::Base.transaction do
   ].each do |w|
     add_child_keyword(net_assets, w)
   end
+  cost = Keyword.create!(:name => "費用")
+  [
+   "その他", "オンラインサービス", "クリーニング", "ケーブルテレビ",
+   "コンピュータ", "プロバイダ", "委託手数料", "衣料品", "医療費",
+   "家賃", "教育", "銀行手数料",
+   ["娯楽", ["ゲーム", "リクリエーション", "音楽", "映画", "旅行"]],
+   "交通機関", ["公共料金", ["ガス", "ゴミ収集", "水道", "電気"]],
+   "購読", ["自動車", ["ガソリン", "修理維持", "駐車場", "通行料"]],
+   "趣味", "書籍", "消耗品", "食費",
+   ["税金", ["その他の税", "健康保険", "公的年金", "国税", "地方税"]],
+   "贈答", "調整", "電話料金", "日用品", ["勉強会", ["懇親会", "参加費"]],
+   ["保険", ["賃貸住宅保険", "医療保険", "自動車保険", "生命保険"]],
+  ].each do |w|
+    add_child_keyword(cost, w)
+  end
   debt = Keyword.create!(:name => "負債")
   [
    "クレジットカード"
   ].each do |w|
     add_child_keyword(debt, w)
+  end
+
+  10.times do |n|
+    event = user.events.create!(:spent_on => (Date.today - n),
+                                :user     => user,
+                                :title    => "event #{n}",
+                                :note     => "note " * 100)
+    sum = 0
+    5.times do |m|
+      val = rand(10000) + 1000
+      item1 = event.items.create!(:founds_in  => val)
+      item1.tag_list = "食費"
+      item1.save!
+      sum += val
+    end
+    item2 = event.items.create!(:founds_out => sum)
+    item2.tag_list = "現金"
+    item2.save!
   end
 end
 

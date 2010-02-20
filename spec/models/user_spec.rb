@@ -42,4 +42,37 @@ describe User do
     end
   end
 
+  describe "callback" do
+    describe "after_create" do
+      before do
+        @user = User.create(@basic.attributes)
+      end
+      it{ @user.tokens.should have(2).tokens }
+    end
+    describe "after_create" do
+      before do
+        @user = User.new(@basic.attributes)
+        @user.save
+      end
+      it{ @user.tokens.should have(2).tokens }
+    end
+  end
+
+  describe "refresh_token" do
+    before do
+      @user = Factory(:test)
+    end
+    ['mail', 'API'].each do |purpose|
+      it{
+        lambda{
+          @user.refresh_token(purpose)
+        }.should change{ @user.tokens.detect{|v| v.purpose == purpose }.token }
+      }
+      it{
+        lambda{
+          @user.refresh_token(purpose)
+        }.should_not change{ @user.tokens.detect{|v| v.purpose != purpose }.token }
+      }
+    end
+  end
 end

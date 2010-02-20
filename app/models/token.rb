@@ -19,4 +19,11 @@ class Token < ActiveRecord::Base
   validates_presence_of   :token
   validates_format_of     :token, :with => /\A[a-z0-9]{20}\z/, :allow_blank => true
   validates_uniqueness_of :token
+
+  def self.generate
+    begin
+      new_token = SecureRandom.hex(20)
+    end while Token.exists?(:token => new_token)
+    new_token
+  end
 end

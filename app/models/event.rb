@@ -24,6 +24,16 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :items, :allow_destroy => true,
   :reject_if => lambda{|attr| attr['tag_list'].blank? }
 
+  named_scope :by_range, lambda{|first, last|
+    { :conditions => ["? <= spent_on and spent_on <= ?", first, last] }
+  } do
+    def tags
+      inject([]){|memo, e|
+        memo += e.items.inject([]){|m,i| m += i.tag_list }
+      }.flatten.uniq
+    end
+  end
+
   named_scope :by_month, lambda{|date|
     first = date.beginning_of_month
     last  = date.end_of_month
@@ -42,7 +52,4 @@ class Event < ActiveRecord::Base
     { :conditions => ["? <= spent_on and spent_on <= ?", first, last] }
   }
 
-  named_scope :by_range, lambda{|first, last|
-    { :conditions => ["? <= spent_on and spent_on <= ?", first, last] }
-  }
 end

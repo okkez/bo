@@ -4,6 +4,8 @@ ActionController::Routing::Routes.draw do |map|
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action
+  map.connect 'reports/:year/:month', :controller => 'reports', :action => 'index',
+  :year => /\d{4}/, :month => /[01][0-9]/
 
   # Sample of named route:
   #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
@@ -11,7 +13,6 @@ ActionController::Routing::Routes.draw do |map|
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products
-  map.resources :items
   map.resources :events
 
   # Sample resource route with options:

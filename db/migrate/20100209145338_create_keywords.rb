@@ -3,6 +3,9 @@ class CreateKeywords < ActiveRecord::Migration
     create_table :keywords do |t|
       t.string :name, :null => false
       t.integer :parent_id
+      t.integer :lft
+      t.integer :rgt
+      t.integer :position
     end
   end
 

@@ -23,7 +23,8 @@ Rails::Initializer.run do |config|
   config.gem "validates_email_format_of"
   config.gem "multi_auth"
   config.gem "will_paginate"
-  config.gem "aunderwo-acts_as_tree", :lib => "acts_as_tree"
+  config.gem "coupa-acts_as_list"
+  config.gem "awesome_nested_set"
   # config.gem "acl9"
 
   # Only load the plugins named here, in the order given (default is alphabetical).

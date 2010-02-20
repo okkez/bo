@@ -14,8 +14,10 @@
 #
 
 class Item < ActiveRecord::Base
-  validates_numericality_of :founds_in, :greater_than => 0, :only_integer => true, :allow_nil => true
-  validates_numericality_of :founds_out, :greater_than => 0, :only_integer => true, :allow_nil => true
+  with_options :only_integer => true, :allow_nil => true do |item|
+    item.validates_numericality_of :founds_in, :greater_than_or_equal_to => 0
+    item.validates_numericality_of :founds_out, :greater_than_or_equal_to => 0
+  end
 
   validate :validates_tags
 
@@ -35,7 +37,7 @@ class Item < ActiveRecord::Base
     return if keywords.empty?
     roots = keywords.map{|k| k.root.id }
     unless roots.uniq.size == 1
-      errors.add_to_base("矛盾するタグは登録できません")
+      errors.add_to_base("矛盾するタグは登録できません: #{self.tag_list.join(' ')}")
     end
   end
 

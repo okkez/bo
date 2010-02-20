@@ -43,7 +43,7 @@ describe Item do
 
       describe " is zero" do
         subject{ @basic.founds_in = 0; @basic }
-        it{ should_not be_valid }
+        it{ should be_valid }
       end
 
       describe " is negative value" do
@@ -65,7 +65,7 @@ describe Item do
 
       describe " is zero" do
         subject{ @basic.founds_out = 0; @basic }
-        it{ should_not be_valid }
+        it{ should be_valid }
       end
 
       describe " is negative value" do

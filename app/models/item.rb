@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 # == Schema Information
-# Schema version: 20091204080113
+# Schema version: 20100209145338
 #
 # Table name: items
 #
 #  id           :integer       not null, primary key
 #  event_id     :integer       index_items_on_event_id
-#  founds_in    :integer
-#  founds_out   :integer
+#  founds_in    :integer       default(0), not null
+#  founds_out   :integer       default(0), not null
 #  created_at   :datetime
 #  updated_at   :datetime
 #  lock_version :integer       default(0), not null

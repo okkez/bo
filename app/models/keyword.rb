@@ -1,3 +1,16 @@
+# == Schema Information
+# Schema version: 20100209145338
+#
+# Table name: keywords
+#
+#  id        :integer       not null, primary key
+#  name      :string(255)   not null
+#  parent_id :integer
+#  lft       :integer
+#  rgt       :integer
+#  position  :integer
+#
+
 class Keyword < ActiveRecord::Base
 
   validates_presence_of :name

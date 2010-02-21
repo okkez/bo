@@ -1,14 +1,39 @@
 /* style sheet */
 
+#header a {
+  text-decoration: none;
+}
+#header img {
+  border-style: none;
+}
+
 table {
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
 table, tr, th, td {
-  border: 1px solid black;
   border-collapse: collapse;
   padding: 2px;
+}
+
+table.reports thead tr {
+  border-bottom: 2px solid gray;
+}
+table.reports tbody tr {
+  border-bottom: 1px solid gray;
+}
+table.reports, table.reports th, table.reports td {
+  border-style: none;
+}
+
+td.tag {
+  width: 200px;
+}
+
+td.founds-in, td.founds-out {
+  width: 100px;
+  text-align: right;
 }
 
 #navigation li {

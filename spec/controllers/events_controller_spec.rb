@@ -72,7 +72,15 @@ describe EventsController do
       before{ post 'create' }
       it{ response.should be_redirect }
     end
-
+    describe "by user" do
+      before do
+        login_as(@user)
+        event = Factory.build(:morning)
+        post 'create', :event => event.attributes
+      end
+      it{ response.should be_redirect }
+      it{ response.should redirect_to(events_path) }
+    end
   end
 
   describe "PUT update" do
@@ -88,4 +96,5 @@ describe EventsController do
       it{ response.should be_redirect }
     end
   end
+
 end

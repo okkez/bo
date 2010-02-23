@@ -95,6 +95,18 @@ describe EventsController do
       before{ delete 'destroy' }
       it{ response.should be_redirect }
     end
+    describe "by user" do
+      before do
+        login_as(@user)
+        event = mock('event')
+        event.should_receive(:destroy)
+        Event.should_receive(:first).and_return(event)
+        delete 'destroy', :id => 1
+      end
+      it{ response.should be_redirect }
+      it{ response.should redirect_to(events_path) }
+      it{ response.flash[:notice].should_not be_blank }
+    end
   end
 
 end

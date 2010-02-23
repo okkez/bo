@@ -53,15 +53,18 @@ class EventsController < ApplicationController
 
   # DELETE event_path(:id)
   def destroy
-    Event.destroy(:conditions => { :id => params[:id], :user_id => current_user.id })
-    flash[:notice] = "Event was successfully destroyed."
+    @event = Event.first(:conditions => { :id => params[:id], :user_id => current_user.id })
+    if @event
+      @event.destroy
+      flash[:notice] = "Event was successfully destroyed."
+    end
     redirect_to events_path
   end
 
   private
 
   def prepare
-    @event = current_user.events.first(:conditions => { :id => params[:id] })
+    @event = current_user.events.first(:include => :items, :conditions => { :id => params[:id] })
   end
 
 end

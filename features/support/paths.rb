@@ -1,3 +1,4 @@
+# -*- coding: nil -*-
 module NavigationHelpers
   # Maps a name to a path. Used by the
   #
@@ -10,12 +11,22 @@ module NavigationHelpers
     
     when /the home\s?page/
       '/'
-    
-    # Add more mappings here.
-    # Here is an example that pulls values out of the Regexp:
-    #
-    #   when /^(.*)'s profile page$/i
-    #     user_profile_path(User.find_by_login($1))
+    when /the new event page/
+      new_event_path
+
+    when /the new manage_event page/
+      new_manage_event_path
+
+    when /the new manage_event page/
+      new_manage_event_path
+
+      # Add more mappings here.
+      # Here is an example that pulls values out of the Regexp:
+      #
+      #   when /^(.*)'s profile page$/i
+      #     user_profile_path(User.find_by_login($1))
+    when /新規イベント/
+      new_event_path
 
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +

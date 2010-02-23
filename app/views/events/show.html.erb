@@ -2,15 +2,15 @@
 
 <h1><%= @title %></h1>
 
-<table>
+<table class="event">
   <tbody>
-    <tr><th>日</th><td><%=h @event.spent_on %></td></tr>
+    <tr><th>日付</th><td><%=h @event.spent_on %></td></tr>
     <tr><th>タイトル</th><td><%=h @event.title %></td></tr>
     <tr><th>ノート</th><td><%=h @event.note %></td></tr>
   </tbody>
 </table>
 
-<table>
+<table class="items">
   <thead><tr><th>タグ</th><th>入金</th><th>出金</th></tr></thead>
   <tbody>
     <%- @event.items.each do |item| -%>

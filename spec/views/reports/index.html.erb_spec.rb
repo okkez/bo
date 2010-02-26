@@ -5,8 +5,5 @@ describe "/reports/index" do
     render 'reports/index'
   end
 
-  #Delete this example and add some real ones or delete this file
-  it "should tell you where to find the file" do
-    response.should have_tag('p', %r[Find me in app/views/reports/index])
-  end
+  it{ response.should have_tag('form') }
 end

@@ -1,3 +1,5 @@
+<%- @title = "検索" -%>
+
 <%- form_tag(:controller => "reports", :action => "search") do -%>
   <div>
     <%= text_field_tag :first, params[:first] %> - <%= text_field_tag :last, params[:last] %>

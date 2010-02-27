@@ -22,7 +22,7 @@ class Token < ActiveRecord::Base
 
   def self.generate
     begin
-      new_token = SecureRandom.hex(20)
+      new_token = SecureRandom.hex(10)
     end while Token.exists?(:token => new_token)
     new_token
   end

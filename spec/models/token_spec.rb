@@ -29,8 +29,15 @@ describe Token do
       it{ should_not be_valid }
     end
     describe "token is not unique" do
-      subject{ Factory(:token); @basic }
+      subject{ Factory(:token, :user_id => 1); @basic }
       it{ should_not be_valid }
     end
+  end
+
+  describe "generate" do
+    before do
+      @token = Token.new(:user_id => 1, :token => Token.generate, :purpose => 'API')
+    end
+    it{ @token.should be_valid }
   end
 end

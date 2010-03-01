@@ -24,11 +24,25 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(params[:event])
     @event.user = current_user
-    if @event.save
-      flash[:notice] = "Event was successfully created."
-      redirect_to events_path
-    else
-      render :action => 'new'
+    respond_to do |format|
+      if @event.save
+        message = _("Event was successfully created.")
+        format.html{
+          flash[:notice] = message
+          redirect_to events_path
+        }
+        format.json{
+          hash = {}
+          hash[:event] = @event.attributes
+          hash[:event][:items] = @event.items.map(&:attributes)
+          render :json => hash.merge(:success => true, :message => message)
+        }
+      else
+        format.html{ render :action => 'new' }
+        format.json{
+          render :json => { :success => false, :message => @event.errors.full_message }
+        }
+      end
     end
   end
 
@@ -37,11 +51,10 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.html
       format.json{
-        hash = {
-          :event => @event.attributes,
-          :items => @event.items.map(&:attributes)
-        }
-        render :json => hash.to_json, :callback => params[:callback]
+        hash = {}
+        hash[:event] = @event.attributes
+        hash[:event][:items] = @event.items.map(&:attributes)
+        render :json => hash, :callback => params[:callback]
       }
     end
   end

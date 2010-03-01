@@ -140,6 +140,30 @@ describe EventsController do
         end
       end
     end
+    describe "POST create" do
+      describe "no such user" do
+        before do
+          event = Factory.build(:morning)
+          post 'create', :format => 'json', :token => 'x'*20, :event => event.attributes
+        end
+        it{ response.status.should == "403 Forbidden" }
+      end
+      describe "user exist" do
+        before do
+          user = Factory(:user)
+          event = Factory.build(:morning)
+          items = event.items
+          hash = {
+            :format => 'json',
+            :token => user.tokens.first(:conditions => { :purpose => "API" }).token,
+          }
+          hash[:event] = event.attributes
+          hash[:event][:items_attributes] = items.map(&:attributes)
+          post('create', hash)
+        end
+        it{ response.should be_success }
+      end
+    end
     describe "DELETE destroy" do
       describe "no such user" do
         before do

@@ -2,8 +2,10 @@ require 'spec_helper'
 
 describe MailRegister do
   before do
+    @user = Factory(:user)
+    token = @user.tokens.first(:conditions => { :purpose => "mail" }).token
     @basic = TMail::Mail.new
-    @basic.to = "bo+#{'2'*20}@okkez.net"
+    @basic.to = "bo+#{token}@okkez.net"
     @basic.from = 'Test <admin@example.com>'
     @basic.subject = 'test mail'
     @basic.date = Time.now
@@ -13,7 +15,6 @@ describe MailRegister do
   end
 
   describe 'basic' do
-    before{ Factory(:user_with_token) }
     it do
       lambda{ MailRegister.entry(@basic) }.should_not raise_error
     end
@@ -26,6 +27,7 @@ describe MailRegister do
   end
 
   describe "no such user" do
+    before{ @basic.to = "bo+#{'2'*20}@okkez.net" }
     it do
       lambda{ MailRegister.entry(@basic) }.should_not raise_error
     end
@@ -38,7 +40,6 @@ describe MailRegister do
   end
 
   describe "multi lines" do
-    before{ Factory(:user_with_token) }
     before do
       @basic.body = Base64.encode64(<<EOD)
 500 lunch1

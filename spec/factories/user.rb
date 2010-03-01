@@ -12,10 +12,6 @@ Factory.define :test, :parent => :user do |u|
   }
 end
 
-Factory.define :user_with_token, :parent => :user do |u|
-  u.tokens{|token| [token.association(:mail_token)] }
-end
-
 Factory.define :cuke, :parent => :user do |u|
   u.email 'cuke@example.com'
 end

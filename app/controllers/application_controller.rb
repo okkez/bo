@@ -9,10 +9,31 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password
 
   before_filter :authentication
+  before_filter :authenticate_by_token
+
+  class TokenError < StandardError
+  end
+
+  rescue_from TokenError do
+    message = { :message => "Token error.", :status => false }
+    render :json => message, :callback => params[:callback], :status => 403
+  end
 
   private
 
   def current_user
     @login_user if defined?(@login_user)
+  end
+
+  def authenticate_by_token
+    return true unless params[:token]
+    @token = Token.find_by_token_and_purpose(params[:token], 'API')
+    if @token
+      @login_user = @token.user
+    else
+      logger.info "::: Token not found! ::: #{params[:token]}" if params[:token]
+      raise TokenError
+    end
+    true
   end
 end

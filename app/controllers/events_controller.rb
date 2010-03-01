@@ -34,6 +34,16 @@ class EventsController < ApplicationController
 
   # GET event_path(:id)
   def show
+    respond_to do |format|
+      format.html
+      format.json{
+        hash = {
+          :event => @event.attributes,
+          :items => @event.items.map(&:attributes)
+        }
+        render :json => hash.to_json, :callback => params[:callback]
+      }
+    end
   end
 
   # GET edit_event_path(:id)
@@ -56,9 +66,13 @@ class EventsController < ApplicationController
     @event = Event.first(:conditions => { :id => params[:id], :user_id => current_user.id })
     if @event
       @event.destroy
-      flash[:notice] = "Event was successfully destroyed."
+      message = _("Event was successfully destroyed.")
+      flash[:notice] = message
     end
-    redirect_to events_path
+    respond_to do |format|
+      format.html{ redirect_to events_path }
+      format.json{ render :json => { :message => message }, :callback => params[:callback] }
+    end
   end
 
   private

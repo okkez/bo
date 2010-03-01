@@ -109,4 +109,57 @@ describe EventsController do
     end
   end
 
+  describe "API" do
+    describe "GET show" do
+      describe "no such user" do
+        before do
+          get 'show', :format => 'json', :id => 1, :token => 'x'*20
+        end
+        it{ response.status.should == "403 Forbidden" }
+      end
+      describe "user exist" do
+        describe "without callback" do
+          before do
+            user = Factory(:user)
+            @event = user.events.create(Factory.build(:morning).attributes)
+            get('show', :format => 'json', :id => @event.id,
+                :token => user.tokens.first(:conditions => { :purpose => 'API' }).token)
+          end
+          it{ response.should be_success }
+          it{ ActiveSupport::JSON.decode(response.body).should be_instance_of(Hash) }
+        end
+        describe "with callback" do
+          before do
+            user = Factory(:user)
+            @event = user.events.create(Factory.build(:morning).attributes)
+            get('show', :format => 'json', :id => @event.id, :callback => "show",
+                :token => user.tokens.first(:conditions => { :purpose => 'API' }).token)
+          end
+          it{ response.should be_success }
+          it{ response.body.should match(%r!show\(.+\)!) }
+        end
+      end
+    end
+    describe "DELETE destroy" do
+      describe "no such user" do
+        before do
+          delete 'destroy', :format => 'json', :id => 1, :token => 'x'*20
+        end
+        it{ response.status.should == "403 Forbidden" }
+      end
+      describe "user exist" do
+        describe "without callback" do
+          before do
+            user = Factory(:user)
+            @event = user.events.create(Factory.build(:morning).attributes)
+            delete('destroy', :format => 'json', :id => @event.id,
+                   :token => user.tokens.first(:conditions => { :purpose => "API" }).token)
+          end
+          it{ response.should be_success }
+          it{ Event.exists?(@event.id).should_not be_true }
+        end
+      end
+    end
+  end
+
 end

@@ -88,6 +88,15 @@ describe EventsController do
       before{ put 'update' }
       it{ response.should be_redirect }
     end
+    describe "by user" do
+      before do
+        login_as(@user)
+        event = Factory(:morning, :user => @user)
+        put 'update', :id => event.id, :event => event.attributes
+      end
+      it{ response.should be_redirect }
+      it{ response.should redirect_to(events_path) }
+    end
   end
 
   describe "DELETE destroy" do
@@ -159,7 +168,31 @@ describe EventsController do
           }
           hash[:event] = event.attributes
           hash[:event][:items_attributes] = items.map(&:attributes)
-          post('create', hash)
+          post 'create', hash
+        end
+        it{ response.should be_success }
+      end
+    end
+    describe "PUT update" do
+      describe "no such user" do
+        before do
+          event = Factory.build(:morning)
+          put 'update', :format => 'json', :token => 'x'*20, :event => event.attributes
+        end
+        it{ response.status.should == "403 Forbidden" }
+      end
+      describe "user exist" do
+        before do
+          user = Factory(:user)
+          event = Factory(:morning, :user => user)
+          items = event.items
+          hash = {
+            :format => 'json', :id => event.id,
+            :token => user.tokens.first(:conditions => { :purpose => "API" }).token,
+          }
+          hash[:event] = event.attributes
+          hash[:event][:items_attributes] = items.map(&:attributes)
+          put 'update', hash
         end
         it{ response.should be_success }
       end

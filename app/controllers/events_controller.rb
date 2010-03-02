@@ -66,11 +66,25 @@ class EventsController < ApplicationController
   # PUT event_path(:id)
   def update
     @event.attributes = params[:event]
-    if @event.save
-      flash[:notice] = "Event was successfully updated."
-      redirect_to events_path
-    else
-      render :action => 'edit'
+    respond_to do |format|
+      if (success = @event.save)
+        message = _("Event was successfully updated.")
+        format.html{
+          flash[:notice] = message
+          redirect_to events_path
+        }
+      else
+        message = @event.errors.full_message
+        format.html{ render :action => 'edit' }
+      end
+      format.json{
+        hash = {}
+        hash[:event] = @event.attributes
+        hash[:event][:items_attributes] = @event.items.map(&:attributes)
+        render :json => hash.merge(:success => success,
+                                   :message => message,
+                                   :callback => params[:callback])
+      }
     end
   end
 

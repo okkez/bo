@@ -157,7 +157,7 @@ describe EventsController do
         end
         it{ response.status.should == "403 Forbidden" }
       end
-      describe "user exist" do
+      describe "user exist using JSON" do
         before do
           user = Factory(:user)
           event = Factory.build(:morning)
@@ -174,6 +174,22 @@ describe EventsController do
         end
         it{ response.should be_success }
       end
+      describe "user exist using plain data" do
+        before do
+          user = Factory(:user)
+          event = Factory.build(:morning)
+          items = event.items
+          request = {}
+          request[:event] = event.attributes
+          request[:event][:items_attributes] = items.map(&:attributes)
+          hash = {
+            :format  => 'json',
+            :token   => user.tokens.first(:conditions => { :purpose => "API" }).token,
+          }.merge(request)
+          post 'create', hash
+        end
+        it{ response.should be_success }
+      end
     end
     describe "PUT update" do
       describe "no such user" do
@@ -183,7 +199,7 @@ describe EventsController do
         end
         it{ response.status.should == "403 Forbidden" }
       end
-      describe "user exist" do
+      describe "user exist using json" do
         before do
           user = Factory(:user)
           event = Factory(:morning, :user => user)
@@ -196,6 +212,22 @@ describe EventsController do
             :token => user.tokens.first(:conditions => { :purpose => "API" }).token,
             :request => request.to_json
           }
+          put 'update', hash
+        end
+        it{ response.should be_success }
+      end
+      describe "user exist using plain" do
+        before do
+          user = Factory(:user)
+          event = Factory(:morning, :user => user)
+          items = event.items
+          request = {}
+          request[:event] = event.attributes
+          request[:event][:items_attributes] = items.map(&:attributes)
+          hash = {
+            :format => 'json', :id => event.id,
+            :token => user.tokens.first(:conditions => { :purpose => "API" }).token,
+          }.merge(request)
           put 'update', hash
         end
         it{ response.should be_success }

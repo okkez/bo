@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
 
   before_filter :authentication_required, :except => [:index]
+  before_filter :prepare_json, :only => [:create, :update]
   before_filter :prepare, :only => [:show, :edit, :update]
 
   # GET events_path
@@ -103,6 +104,13 @@ class EventsController < ApplicationController
   end
 
   private
+
+  def prepare_json
+    if params[:format] == 'json' && params.member?(:request)
+      data = ActiveSupport::JSON.decode(params[:request])
+      params[:event] = data["event"]
+    end
+  end
 
   def prepare
     @event = current_user.events.first(:include => :items, :conditions => { :id => params[:id] })

@@ -162,12 +162,14 @@ describe EventsController do
           user = Factory(:user)
           event = Factory.build(:morning)
           items = event.items
+          request = {}
+          request[:event] = event.attributes
+          request[:event][:items_attributes] = items.map(&:attributes)
           hash = {
-            :format => 'json',
-            :token => user.tokens.first(:conditions => { :purpose => "API" }).token,
+            :format  => 'json',
+            :token   => user.tokens.first(:conditions => { :purpose => "API" }).token,
+            :request => request.to_json
           }
-          hash[:event] = event.attributes
-          hash[:event][:items_attributes] = items.map(&:attributes)
           post 'create', hash
         end
         it{ response.should be_success }
@@ -186,12 +188,14 @@ describe EventsController do
           user = Factory(:user)
           event = Factory(:morning, :user => user)
           items = event.items
+          request = {}
+          request[:event] = event.attributes
+          request[:event][:items_attributes] = items.map(&:attributes)
           hash = {
             :format => 'json', :id => event.id,
             :token => user.tokens.first(:conditions => { :purpose => "API" }).token,
+            :request => request.to_json
           }
-          hash[:event] = event.attributes
-          hash[:event][:items_attributes] = items.map(&:attributes)
           put 'update', hash
         end
         it{ response.should be_success }

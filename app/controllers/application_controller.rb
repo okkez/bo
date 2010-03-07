@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   filter_parameter_logging :password
 
   before_filter :authentication
-  before_filter :authenticate_by_token
+  prepend_before_filter :authenticate_by_token
 
   class TokenError < StandardError
   end
@@ -27,9 +27,11 @@ class ApplicationController < ActionController::Base
 
   def authenticate_by_token
     return true unless params[:token]
+    self.class.skip_before_filter :verify_authenticity_token
     @token = Token.find_by_token_and_purpose(params[:token], 'API')
     if @token
       @login_user = @token.user
+      session[:user_id] = @login_user.id
     else
       logger.info "::: Token not found! ::: #{params[:token]}" if params[:token]
       raise TokenError

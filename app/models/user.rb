@@ -20,9 +20,16 @@ class User < ActiveRecord::Base
 
   after_create :create_tokens
 
+  def token(purpose)
+    self.tokens.detect{|t| t.purpose == purpose }
+  end
+
+  def to_address
+    "bo+#{token('mail').token}@okkez.net"
+  end
+
   def refresh_token(purpose)
-    token = self.tokens.detect{|t| t.purpose == purpose }
-    token.update_attributes(:token => Token.generate)
+    token(purpose).update_attributes(:token => Token.generate)
   end
 
   private

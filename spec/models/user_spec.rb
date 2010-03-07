@@ -14,19 +14,21 @@ describe User do
     it{ @basic.should be_valid }
   end
 
-  describe "email is blank" do
-    subject{ @basic.email = ''; @basic }
-    it{ should be_valid }
-  end
+  describe "validations" do
+    describe "email is blank" do
+      subject{ @basic.email = ''; @basic }
+      it{ should be_valid }
+    end
 
-  describe "email is nil" do
-    subject{ @basic.email = nil; @basic }
-    it{ should be_valid }
-  end
+    describe "email is nil" do
+      subject{ @basic.email = nil; @basic }
+      it{ should be_valid }
+    end
 
-  describe "email is bad format" do
-    subject{ @basic.email = 'a..b@example.com'; @basic }
-    it{ should_not be_valid }
+    describe "email is bad format" do
+      subject{ @basic.email = 'a..b@example.com'; @basic }
+      it{ should_not be_valid }
+    end
   end
 
   describe "association" do
@@ -56,6 +58,21 @@ describe User do
       end
       it{ @user.tokens.should have(2).tokens }
     end
+  end
+
+  describe "token" do
+    before do
+      @user = Factory(:test)
+    end
+    it{ @user.token("mail").should be_instance_of(Token) }
+    it{ @user.token("API").should be_instance_of(Token) }
+  end
+
+  describe "to_address" do
+    before do
+      @user = Factory(:test)
+    end
+    it{ @user.to_address.should match(/bo\+[0-9a-f]{20}@okkez\.net/)}
   end
 
   describe "refresh_token" do

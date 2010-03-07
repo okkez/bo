@@ -1,0 +1,9 @@
+<%- @title = "ユーザ情報" -%>
+
+<pre class="token">
+  <%=h @user.token("API").token %>
+</pre>
+
+<pre class="token">
+  <%=h @user.to_address %>
+</pre>

@@ -6,6 +6,12 @@
 #header img {
   border-style: none;
 }
+#navigation li {
+  display: inline;
+}
+#navigation a {
+  text-decoration: none;
+}
 
 table {
   margin-top: 5px;
@@ -19,11 +25,25 @@ table, tr, th, td {
 
 table.reports thead tr {
   border-bottom: 2px solid gray;
+  color: white;
+  background-color: #000080;
 }
 table.reports tbody tr {
   border-bottom: 1px solid gray;
 }
 table.reports, table.reports th, table.reports td {
+  border-style: none;
+}
+
+table.items thead tr {
+  border-bottom: 2px solid gray;
+  color: white;
+  background-color: #000080;
+}
+table.items tbody tr {
+  border-bottom: 1px solid gray;
+}
+table.items, table.items th, table.items td {
   border-style: none;
 }
 
@@ -36,8 +56,9 @@ td.founds-in, td.founds-out {
   text-align: right;
 }
 
-#navigation li {
-  display: inline;
+td.founds-in input[type=text], td.founds-out input[type=text] {
+  width: 100px;
+  text-align: right;
 }
 
 span.tag.selected {

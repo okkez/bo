@@ -4,7 +4,7 @@
 
 <%- form_for @event do |event_form| -%>
   <%- @item_template = generate_template(event_form, :items) -%>
-  <table id="event">
+  <table class="event">
     <tbody>
       <tr><th><%= event_form.label :spent_on, "日付" %></th><td><%= event_form.text_field :spent_on %></td></tr>
       <tr><th><%= event_form.label :title, "タイトル" %></th><td><%= event_form.text_field :title %></td></tr>
@@ -12,7 +12,7 @@
     </tbody>
   </table>
 
-  <table id="items">
+  <table class="items">
     <thead><tr><th>タグ</th><th>入金</th><th>出金</th><th>&nbsp;</th></tr></thead>
     <tbody>
       <%- event_form.fields_for :items do |item_form| -%>

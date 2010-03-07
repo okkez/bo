@@ -15,9 +15,9 @@
   <tbody>
     <%- @event.items.each do |item| -%>
       <tr>
-        <td><%=h item.tag_list %></td>
-        <td><%=h item.founds_in %></td>
-        <td><%=h item.founds_out %></td>
+        <td class="tag"><%=h item.tag_list %></td>
+        <td class="founds-in"><%=h item.founds_in %></td>
+        <td class="founds-out"><%=h item.founds_out %></td>
       </tr>
     <%- end -%>
   </tbody>

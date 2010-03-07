@@ -27,8 +27,7 @@ body {
  border: 1px solid #ccc;
  height: 100px;
  margin: 10px 0px 0px 0px;
- background: #BD9C8C;
- background: #E7DBD5;
+ background: #E6E6FA;
 }
 #navigation {
  float: left;
@@ -37,7 +36,7 @@ body {
  padding: 10px;
  border: 1px solid #ccc;
  margin: 0px 0px 0px 0px;
- background: #BD9C8C;
+ background: #DEDEFF;
 }
 #leftcolumn { 
  color: #333;
@@ -47,7 +46,7 @@ body {
  min-height: 350px;
  width: 678px;
  float: left;
- background: #F2F2E6;
+ background: #F0F8FF;
 }
 #rightcolumn { 
  float: right;
@@ -58,14 +57,14 @@ body {
  min-height: 350px;
  width: 200px;
  display: inline;
- background: #E7DBD5;
+ background: #E6E6FA;
 }
 #footer { 
  width: 900px;
  clear: both;
  color: #333;
  border: 1px solid #ccc;
- background: #BD9C8C;
+ background: #DEDEFF;
  margin: 0px 0px 10px 0px;
  padding: 10px;
 }

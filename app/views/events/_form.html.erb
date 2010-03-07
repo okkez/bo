@@ -109,6 +109,7 @@
     $("#tag_list_helper").val(tags);
     tags = tags.split(" ");
     $.each($("#dialog div.tags span.tag"), function(index, val){
+      $(val).removeClass("selected");
       if (tags.indexOf($(val).text()) >= 0){
         $(val).addClass("selected");
       }

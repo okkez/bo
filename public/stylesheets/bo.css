@@ -1,10 +1,10 @@
 /* style sheet */
 
+img {
+  border-style: none;
+}
 #header a {
   text-decoration: none;
-}
-#header img {
-  border-style: none;
 }
 #navigation li {
   display: inline;
@@ -35,6 +35,11 @@ table.reports, table.reports th, table.reports td {
   border-style: none;
 }
 
+table.items {
+  min-width: 600px;
+  border-top: 1px solid gray;
+}
+
 table.items thead tr {
   border-bottom: 2px solid gray;
   color: white;
@@ -47,17 +52,33 @@ table.items, table.items th, table.items td {
   border-style: none;
 }
 
+table.event {
+  min-width: 600px;
+  border-top: 1px solid gray;
+}
+
+table.event tbody th {
+  width: 30%;
+  border-right: 1px solid gray;
+  color: white;
+  background-color: #000080;
+}
+
+table.event tbody tr {
+  border-bottom: 1px solid gray;
+}
+
 td.tag {
-  width: 200px;
+  width: 35%;
 }
 
 td.founds-in, td.founds-out {
-  width: 100px;
+  width: 30%;
   text-align: right;
 }
 
 td.founds-in input[type=text], td.founds-out input[type=text] {
-  width: 100px;
+  width: 180px;
   text-align: right;
 }
 
@@ -65,6 +86,20 @@ span.tag.selected {
   background-color: #6495ED;
 }
 span.tag a {
+  text-decoration: none;
+}
+
+a.add-item {
+  background-image: url(/images/list-add.png);
+  background-repeat: no-repeat;
+  padding: 0px 0px 0px 16px;
+  text-decoration: none;
+}
+
+a.remove {
+  background-image: url(/images/list-remove.png);
+  background-repeat: no-repeat;
+  padding: 0px 0px 0px 16px;
   text-decoration: none;
 }
 

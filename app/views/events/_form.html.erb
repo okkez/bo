@@ -20,7 +20,11 @@
       <%- end -%>
     </tbody>
     <tfoot>
-      <tr><td colspan="4"><%= link_to "Add a item", "#item", :class => "add_item", :rel => "items" %></td></tr>
+      <tr>
+        <td colspan="4">
+          <%= link_to "Add a item", "#item", :class => "add-item", :rel => "items" %>
+        </td>
+      </tr>
     </tfoot>
   </table>
   <p><%= event_form.submit %></p>
@@ -54,13 +58,13 @@
   });
   var item = "<%= @item_template %>";
   <%# アイテム追加 %>
-  $("a.add_item").click(function(event){
+  $("a.add-item").click(function(event){
     var tr = $(replace_ids(item));
-    $("table#items tbody").append(tr).children("tbody tr:last a").click(function(event){
+    $("table.items tbody").append(tr).children("tbody tr:last a").click(function(event){
       $(event.target).parent().parent().remove();
       justifyHeight();
     });
-    $("table#items tbody tr:last input.tag_list").focus(function(event){
+    $("table.items tbody tr:last input.tag_list").focus(function(event){
       $.data($("#dialog")[0], "target", $(event.target).attr("id"));
       $("#tag_list_helper").val($(event.target).val());
       $("#dialog").dialog("open");

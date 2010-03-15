@@ -37,10 +37,12 @@ module MailRegister
           item.tag_list = "現金"
           item.save!
         end
-      rescue
+        Notifier.deliver_success_notification(mail.from, body)
+      rescue => ex
         # failed
-        Rails.logger.info $!.inspect
-        Rails.logger.info $!.backtrace.join("\n")
+        Rails.logger.info ex.inspect
+        Rails.logger.info ex.backtrace.join("\n")
+        Notifier.deliver_failure_notification(mail.from, body, ex)
       end
     end
   end

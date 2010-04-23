@@ -30,7 +30,7 @@ class EventsController < ApplicationController
         message = _("Event was successfully created.")
         format.html{
           flash[:notice] = message
-          redirect_to events_path
+          redirect_to event_path(@event)
         }
         format.json{
           hash = {}
@@ -72,7 +72,7 @@ class EventsController < ApplicationController
         message = _("Event was successfully updated.")
         format.html{
           flash[:notice] = message
-          redirect_to events_path
+          redirect_to event_path(@event)
         }
       else
         message = @event.errors.full_message

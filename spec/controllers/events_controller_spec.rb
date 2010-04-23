@@ -75,11 +75,13 @@ describe EventsController do
     describe "by user" do
       before do
         login_as(@user)
-        event = Factory.build(:morning)
-        post 'create', :event => event.attributes
+        @event = Factory(:morning)
+        Event.should_receive(:new).and_return(@event)
+        @event.should_receive(:save).and_return(true)
+        post 'create', :event => @event.attributes
       end
       it{ response.should be_redirect }
-      it{ response.should redirect_to(events_path) }
+      it{ response.should redirect_to(event_path(@event)) }
     end
   end
 
@@ -91,11 +93,11 @@ describe EventsController do
     describe "by user" do
       before do
         login_as(@user)
-        event = Factory(:morning, :user => @user)
-        put 'update', :id => event.id, :event => event.attributes
+        @event = Factory(:morning, :user => @user)
+        put 'update', :id => @event.id, :event => @event.attributes
       end
       it{ response.should be_redirect }
-      it{ response.should redirect_to(events_path) }
+      it{ response.should redirect_to(event_path(@event)) }
     end
   end
 

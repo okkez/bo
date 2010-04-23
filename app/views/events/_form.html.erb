@@ -42,7 +42,7 @@
     <%= text_field_tag 'tag_list_helper', nil, :size => 50 %>
     <div class="tags">
       <%- Keyword.roots.each do |root| -%>
-        <div>
+        <div class="tag-group">
           <%- tag_links(root).each do |link| -%>
             <span class="tag"><%= link %></span>
           <%- end -%>
@@ -95,6 +95,9 @@
     width: 500,
     autoOpen: false,
     modal: true,
+    open: function(event, ui){
+      $("#dialog div.tags span.tag").removeClass("selected");
+    },
     buttons: {
       "Cancel" : function(){
         $(this).dialog('close');
@@ -112,13 +115,12 @@
     var tags = target.val();
     $("#tag_list_helper").val(tags);
     tags = tags.split(" ");
+    $("#dialog").dialog("open");
     $.each($("#dialog div.tags span.tag"), function(index, val){
-      $(val).removeClass("selected");
       if (tags.indexOf($(val).text()) >= 0){
         $(val).addClass("selected");
       }
     });
-    $("#dialog").dialog("open");
   });
 <%- end -%>
 

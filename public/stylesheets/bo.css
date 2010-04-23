@@ -85,6 +85,9 @@ td.founds-in input[type=text], td.founds-out input[type=text] {
 span.tag.selected {
   background-color: #6495ED;
 }
+span.tag:hover {
+  background-color: #F0FFFF;
+}
 span.tag a {
   text-decoration: none;
 }
@@ -101,6 +104,16 @@ a.remove {
   background-repeat: no-repeat;
   padding: 0px 0px 0px 16px;
   text-decoration: none;
+}
+
+div.tag-group {
+  border-bottom: 1px solid gray;
+}
+
+span.tag {
+  border: 1px solid gray;
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 /* jQuery UI を 1.8 にあげたら消す */

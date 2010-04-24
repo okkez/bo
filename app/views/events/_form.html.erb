@@ -57,6 +57,14 @@
     dateFormat: "yy-mm-dd",
   });
   var item = "<%= @item_template %>";
+  var select_tags_in_dialog = function(tags){
+    tags = tags.split(" ");
+    $.each($("#dialog div.tags span.tag"), function(index, val){
+      if (tags.indexOf($(val).text()) >= 0){
+        $(val).addClass("selected");
+      }
+    });
+  };
   <%# アイテム追加 %>
   $("a.add-item").click(function(event){
     var tr = $(replace_ids(item));
@@ -66,8 +74,10 @@
     });
     $("table.items tbody tr:last input.tag_list").focus(function(event){
       $.data($("#dialog")[0], "target", $(event.target).attr("id"));
-      $("#tag_list_helper").val($(event.target).val());
+      var tags = $(event.target).val();
+      $("#tag_list_helper").val(tags);
       $("#dialog").dialog("open");
+      select_tags_in_dialog(tags);
     });
     justifyHeight();
   });
@@ -114,13 +124,8 @@
     $.data($("#dialog")[0], "target", target.attr("id"));
     var tags = target.val();
     $("#tag_list_helper").val(tags);
-    tags = tags.split(" ");
     $("#dialog").dialog("open");
-    $.each($("#dialog div.tags span.tag"), function(index, val){
-      if (tags.indexOf($(val).text()) >= 0){
-        $(val).addClass("selected");
-      }
-    });
+    select_tags_in_dialog(tags);
   });
 <%- end -%>
 

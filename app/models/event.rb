@@ -19,6 +19,8 @@ class Event < ActiveRecord::Base
   validates_presence_of :user_id
   validates_presence_of :spent_on
 
+  acts_as_taggable_on :tags
+
   belongs_to :user
   has_many :items, :dependent => :destroy
   accepts_nested_attributes_for :items, :allow_destroy => true,
@@ -26,13 +28,7 @@ class Event < ActiveRecord::Base
 
   named_scope :by_range, lambda{|first, last|
     { :conditions => ["? <= spent_on and spent_on <= ?", first, last] }
-  } do
-    def tags
-      inject([]){|memo, e|
-        memo += e.items.inject([]){|m,i| m += i.tag_list }
-      }.flatten.uniq
-    end
-  end
+  }
 
   named_scope :by_month, lambda{|date|
     first = date.beginning_of_month

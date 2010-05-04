@@ -39,11 +39,13 @@ describe EventsController do
       before do
         login_as(@user)
         @event = Factory(:event, :user=> @user, :items => [Factory(:item)])
+        @expected = @event.attributes
+        @expected.delete("id")
         get 'new', :template => @event.id
       end
       it{ response.should be_success }
       it{ response.should render_template("new") }
-      it{ assigns[:event].should == @event }
+      it{ assigns[:event].attributes.should == @expected }
       it{ assigns[:event].items.should have(1).item }
     end
   end

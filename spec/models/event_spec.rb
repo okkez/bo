@@ -115,4 +115,15 @@ describe Event do
       it{ Event.templates('foo', 'hoge').should have(0).events }
     end
   end
+
+  describe "callback" do
+    describe "before_save" do
+      before do
+        @basic.template = true
+        @basic.save!
+        @basic.reload
+      end
+      it{ @basic.tag_list.should == ["template"] }
+    end
+  end
 end

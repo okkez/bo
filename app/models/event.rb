@@ -26,6 +26,14 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :items, :allow_destroy => true,
   :reject_if => lambda{|attr| attr['tag_list'].blank? }
 
+  attr_accessor :template
+
+  def before_save
+    if self.template
+      self.tag_list = 'template'
+    end
+  end
+
   named_scope :by_range, lambda{|first, last|
     { :conditions => ["? <= spent_on and spent_on <= ?", first, last] }
   }

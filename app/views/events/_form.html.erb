@@ -8,6 +8,9 @@
     <tbody>
       <tr><th><%= event_form.label :spent_on, "日付" %></th><td><%= event_form.text_field :spent_on %></td></tr>
       <tr><th><%= event_form.label :title, "タイトル" %></th><td><%= event_form.text_field :title %></td></tr>
+      <%- if @event.new_record? -%>
+        <tr><th><%= event_form.label :template, "テンプレート" %></th><td><%= event_form.check_box :template %></td></tr>
+      <%- end -%>
       <tr><th><%= event_form.label :note, "ノート" %></th><td><%= event_form.text_area :note, :size => "60x3" %></td></tr>
     </tbody>
   </table>

@@ -18,8 +18,12 @@ class EventsController < ApplicationController
   # GET new_event_path
   def new
     if params[:template]
-      @event = current_user.events.first(:include => :items,
-                                         :conditions => { :id => params[:template] })
+      event = current_user.events.first(:include => :items,
+                                        :conditions => { :id => params[:template] })
+      @event = Event.new(event.attributes.merge(:spent_on => Date.today))
+      event.items.each do |item|
+        @event.items.build(item.attributes)
+      end
     else
       @event = Event.new(:spent_on => Date.today)
       @event.items.build

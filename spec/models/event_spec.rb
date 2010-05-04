@@ -80,4 +80,39 @@ describe Event do
       it{ Event.by_range(Date.today-1, Date.today+2).should have(4).events }
     end
   end
+
+  describe "templates" do
+    describe "without additional tags" do
+      before do
+        e = Factory(:event)
+        e.tag_list = "template"
+        e.save!
+        e = Factory(:event)
+        e.tag_list = "template"
+        e.save!
+        e = Factory(:event)
+      end
+      it{ Event.all.should have(3).events }
+      it{ Event.templates.should have(2).events }
+    end
+    describe "with additional tags" do
+      before do
+        e = Factory(:event)
+        e.tag_list = "template hoge"
+        e.save!
+        e = Factory(:event)
+        e.tag_list = "template"
+        e.save!
+        e = Factory(:event)
+        e.tag_list = "template foo"
+        e.save!
+        e = Factory(:event)
+      end
+      it{ Event.all.should have(4).events }
+      it{ Event.templates.should have(3).events }
+      it{ Event.templates('hoge').should have(1).events }
+      it{ Event.templates('foo').should have(1).events }
+      it{ Event.templates('foo', 'hoge').should have(0).events }
+    end
+  end
 end

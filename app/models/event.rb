@@ -48,4 +48,12 @@ class Event < ActiveRecord::Base
     { :conditions => ["? <= spent_on and spent_on <= ?", first, last] }
   }
 
+  def self.templates(*tags)
+    if tags.empty?
+      self.tagged_with('template')
+    else
+      self.tagged_with('template').tagged_with(tags)
+    end
+  end
+
 end

@@ -4,10 +4,12 @@ require 'spec_helper'
 describe "/events/new" do
   describe "with template" do
     before do
-      assigns[:event] = Factory.build(:event,
-                                      :user => Factory(:user),
-                                      :items => [Factory.build(:item),
-                                                 Factory.build(:item, :founds_in => 333)])
+      event = Factory.build(:event,
+                            :user => Factory(:user),
+                            :items => [Factory.build(:item),
+                                       Factory.build(:item, :founds_in => 333)])
+      event.template = true
+      assigns[:event] = event
       render 'events/new'
     end
     it{ response.should have_tag('table.event') }

@@ -64,4 +64,8 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def template?
+    @template ||= self.tag_list.include?('template')
+  end
+
 end

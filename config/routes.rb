@@ -11,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
   # This route can be invoked with purchase_url(:id => product.id)
   map.templates 'events/templates', :controller => 'events', :action => 'templates'
+  map.new_template 'events/template/new', :controller => 'events', :action => 'new_template'
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products

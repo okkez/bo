@@ -20,8 +20,19 @@ class EventsController < ApplicationController
   def templates
     @events = current_user.events(:order => 'spent_on ASC').tagged_with('template').
       paginate(:page => params[:page], :per_page => 50)
+    @_template = true
     respond_to do |format|
       format.html{ render :template => 'index' }
+    end
+  end
+
+  # GET new_template_path
+  def new_template
+    @event = Event.new(:spent_on => Date.today)
+    @event.template = true
+    @event.items.build
+    respond_to do |format|
+      format.html{ render :template => 'new' }
     end
   end
 

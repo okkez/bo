@@ -23,5 +23,8 @@
 
 <p><%= will_paginate @events %></p>
 
+<%- if @_template -%>
+<p><%= link_to "New", new_template_path %></p>
+<%- else -%>
 <p><%= link_to "New", new_event_path %></p>
-
+<%- end -%>

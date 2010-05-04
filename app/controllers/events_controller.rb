@@ -9,9 +9,19 @@ class EventsController < ApplicationController
     user = current_user
     if user
       @events = user.events(:order => 'spent_on ASC').
+        tagged_with('template', :exclude => true).
         paginate(:page => params[:page], :per_page => 50)
     else
       @events = [].paginate(:page => params[:page])
+    end
+  end
+
+  # GET templates_path
+  def templates
+    @events = current_user.events(:order => 'spent_on ASC').tagged_with('template').
+      paginate(:page => params[:page], :per_page => 50)
+    respond_to do |format|
+      format.html{ render :template => 'index' }
     end
   end
 

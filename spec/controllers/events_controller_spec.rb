@@ -35,6 +35,17 @@ describe EventsController do
       it{ response.should be_success }
       it{ response.should render_template("new") }
     end
+    describe "with template" do
+      before do
+        login_as(@user)
+        @event = Factory(:event, :user=> @user, :items => [Factory(:item)])
+        get 'new', :template => @event.id
+      end
+      it{ response.should be_success }
+      it{ response.should render_template("new") }
+      it{ assigns[:event].should == @event }
+      it{ assigns[:event].items.should have(1).item }
+    end
   end
 
   describe "GET show" do

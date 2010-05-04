@@ -17,8 +17,13 @@ class EventsController < ApplicationController
 
   # GET new_event_path
   def new
-    @event = Event.new(:spent_on => Date.today)
-    @event.items.build
+    if params[:template]
+      @event = current_user.events.first(:include => :items,
+                                         :conditions => { :id => params[:template] })
+    else
+      @event = Event.new(:spent_on => Date.today)
+      @event.items.build
+    end
   end
 
   # POST events_path

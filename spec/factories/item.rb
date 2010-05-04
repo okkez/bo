@@ -1,5 +1,13 @@
 # -*- coding: utf-8 -*-
 
+Factory.define :item do |i|
+  i.founds_in 300
+  i.after_create{|item|
+    item.tag_list = "食費"
+    item.save
+  }
+end
+
 Factory.define :morning_meal, :class => Item do |i|
   i.founds_in 300
   i.after_create{|item|

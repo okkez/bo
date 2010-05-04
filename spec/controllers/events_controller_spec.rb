@@ -33,7 +33,7 @@ describe EventsController do
         get 'templates'
       end
       it{ response.should be_success }
-      it{ response.should render_template("index") }
+      it{ response.should render_template("/events/index") }
     end
   end
 

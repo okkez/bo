@@ -13,6 +13,8 @@
 class User < ActiveRecord::Base
   multi_auth
 
+  acts_as_tagger
+
   validates_email_format_of :email, :allow_blank => true
 
   has_many :events, :dependent => :destroy

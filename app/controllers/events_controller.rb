@@ -35,7 +35,8 @@ class EventsController < ApplicationController
     @event = Event.new(params[:event])
     @event.user = current_user
     respond_to do |format|
-      if @event.save
+      if current_user.tag(@event, :with => @event.tag_list, :on => :tags) &&
+          @event.items.all?{|item| current_user.tag(item, :with => item.tag_list, :on => :tags) }
         message = _("Event was successfully created.")
         format.html{
           flash[:notice] = message
@@ -77,7 +78,9 @@ class EventsController < ApplicationController
   def update
     @event.attributes = params[:event]
     respond_to do |format|
-      if (success = @event.save)
+      success = current_user.tag(@event, :with => @event.tag_list, :on => :tags) &&
+        @event.items.all?{|item| current_user.tag(item, :with => item.tag_list, :on => :tags) }
+      if success
         message = _("Event was successfully updated.")
         format.html{
           flash[:notice] = message

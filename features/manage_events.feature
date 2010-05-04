@@ -16,11 +16,6 @@
            | event_items_attributes_0_founds_in  | 1000 |
            | event_items_attributes_0_founds_out |    0 |
     かつ   "Save changes"ボタンをクリックする
-    ならば "一覧"と表示されていること
-    かつ   以下のテーブルが"table.reports tr"に表示されていること:
-           | 日付       | タイトル |
-           | 2010-02-22 | タイトル |
-    もし   "Show"リンクをクリックする
     ならば "詳細"と表示されていること
     かつ   以下のテーブルが"table.event tr"に表示されていること:
            | 日付     | 2010-02-22 |

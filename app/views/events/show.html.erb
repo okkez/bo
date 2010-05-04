@@ -26,4 +26,8 @@
 <p>
   <%= link_to 'Back', events_path %>
   <%= link_to 'Edit', edit_event_path(@event) %>
+  <% if @event.template? -%>
+    <%= link_to 'Create from Template', new_event_path(:template_id => @event.id) %>
+  <% end -%>
+
 </p>

@@ -22,7 +22,7 @@ class EventsController < ApplicationController
       paginate(:page => params[:page], :per_page => 50)
     @_template = true
     respond_to do |format|
-      format.html{ render :template => 'index' }
+      format.html{ render :template => '/events/index' }
     end
   end
 
@@ -32,7 +32,7 @@ class EventsController < ApplicationController
     @event.template = true
     @event.items.build
     respond_to do |format|
-      format.html{ render :template => 'new' }
+      format.html{ render :template => '/events/new' }
     end
   end
 
@@ -43,7 +43,7 @@ class EventsController < ApplicationController
                                         :conditions => { :id => params[:template_id] })
       @event = Event.new(event.attributes.merge(:spent_on => Date.today))
       event.items.each do |item|
-        @event.items.build(item.attributes)
+        @event.items.build(item.attributes.merge(:tag_list => item.tag_list.join(" ")))
       end
     else
       @event = Event.new(:spent_on => Date.today)

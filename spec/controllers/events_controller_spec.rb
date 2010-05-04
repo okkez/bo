@@ -56,7 +56,7 @@ describe EventsController do
         @event = Factory(:event, :user=> @user, :items => [Factory(:item)])
         @expected = @event.attributes
         @expected.delete("id")
-        get 'new', :template => @event.id
+        get 'new', :template_id => @event.id
       end
       it{ response.should be_success }
       it{ response.should render_template("new") }

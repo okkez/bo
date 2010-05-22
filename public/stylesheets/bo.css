@@ -23,6 +23,10 @@ table, tr, th, td {
   padding: 2px;
 }
 
+table.reports {
+  width: 100%;
+}
+
 table.reports thead tr {
   border-bottom: 2px solid gray;
   color: white;
@@ -33,6 +37,14 @@ table.reports tbody tr {
 }
 table.reports, table.reports th, table.reports td {
   border-style: none;
+}
+
+table.reports thead tr th:first-child {
+  width: 12%;
+}
+
+table.reports thead tr th:last-child {
+  width: 18%;
 }
 
 table.items {

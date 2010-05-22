@@ -9,6 +9,7 @@
     <tr>
       <th>日付</th>
       <th>タイトル</th>
+      <th>ノート</th>
       <th>操作</th>
     </tr>
   </thead>
@@ -16,6 +17,7 @@
     <tr class="event" id="event-<%= event.id %>">
       <td><%=h event.spent_on %></td>
       <td><%=h event.title %></td>
+      <td><%=h event.short_note %></td>
       <td>
         <%= link_to "Show", event_path(event) %>
         <%= link_to "Edit", edit_event_path(event) %>

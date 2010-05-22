@@ -116,6 +116,25 @@ describe Event do
     end
   end
 
+  describe "short_note" do
+    describe "note is empty" do
+      subject{ @basic.note = ""; @basic.short_note }
+      it{ should be_empty }
+    end
+    describe "note is nil" do
+      subject{ @basic.note = nil; @basic.short_note }
+      it{ should be_empty }
+    end
+    describe "note is multi line" do
+      subject{ @basic.note = "a\nb\nc\nd"; @basic.short_note }
+      it{ should == "a" }
+    end
+    describe "note is long" do
+      subject{ @basic.note = "a"*100; @basic.short_note }
+      it{ should == "a"*21 }
+    end
+  end
+
   describe "callback" do
     describe "before_save" do
       before do

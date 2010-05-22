@@ -68,4 +68,8 @@ class Event < ActiveRecord::Base
     @template ||= self.tag_list.include?('template')
   end
 
+  def short_note
+    return "" if note.blank?
+    note.split("\n").first.split(//)[0..20].join
+  end
 end

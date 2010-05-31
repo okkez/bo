@@ -1,15 +1,48 @@
 /* style sheet */
 
+#logo {
+  min-height: 90px;
+  background: #F0F8FF;
+}
+
+#navigation {
+  background: #3A5FCD;
+}
+
+#leftcolumn, #rightcolumn {
+  background: #F0F8FF;
+}
+#leftcolumn {
+  width: 700px;
+  padding: 0 5px 0 5px;
+  margin-right: 0;
+}
+
+#rightcolumn {
+  width: 225px;
+  padding: 0 0 0 5px;
+  margin-left: 0;
+}
+
 img {
   border-style: none;
 }
 #header a {
   text-decoration: none;
 }
+#navigation ul {
+  margin: 0 0 0 0;
+}
 #navigation li {
   display: inline;
 }
 #navigation a {
+  color: white;
+  text-decoration: none;
+}
+#navigation a:hover {
+  color: #3A5FCD;
+  background-color: white;
   text-decoration: none;
 }
 
@@ -40,11 +73,11 @@ table.reports, table.reports th, table.reports td {
 }
 
 table.reports thead tr th:first-child {
-  width: 12%;
+  width: 80px;
 }
 
 table.reports thead tr th:last-child {
-  width: 18%;
+  width: 140px;
 }
 
 table.items {

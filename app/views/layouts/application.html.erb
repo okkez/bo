@@ -23,32 +23,36 @@
         <%= yield :script %>
       });
     <%- end -%>
-    <%= stylesheet_link_tag 'base' %>
+    <%= stylesheet_link_tag 'grid' %>
     <%= stylesheet_link_tag 'bo' %>
     <%= stylesheet_link_tag 'jquery-ui-1.7.2.custom' %>
     <%= yield :multi_auth_additional_head %>
     <title><%= @title %></title>
   </head>
   <body>
-    <div id="wrapper">
-      <div id="header">
+    <div id="header" class="container_12">
+      <div id="logo" class="grid_12">
         <%= link_to image_tag("logo.png"), root_path %>
-	  </div>
-	  <div id="navigation">
-		<ul>
+      </div>
+	  <div id="navigation" class="grid_12">
+	    <ul>
           <li><%= link_to 'Home', root_path %></li>
           <%- if logged_in? -%>
+            <li><%= link_to 'New Event', new_event_path %></li>
             <li><%= link_to 'Reports', :controller => "/reports" %></li>
             <li><%= link_to 'Templates', templates_path %></li>
+            <li><%= link_to 'New Template', new_template_path %></li>
             <li><%= link_to 'Settings', :controller => "/settings" %></li>
             <li><%= link_to 'Logout', { :controller => '/auth', :action => 'logout' }, :method => :post %></li>
           <%- else -%>
             <li><%= link_to 'Signup', :controller => '/signup' %></li>
             <li><%= link_to 'Login', :controller => '/auth' %></li>
           <%- end -%>
-		</ul>
+	    </ul>
 	  </div>
-	  <div id="leftcolumn">
+	</div>
+    <div id="content" class="container_12">
+	  <div id="leftcolumn" class="grid_9">
         <div id="cookie_check" style="display:none">
           <%=h("Please enable cookie.") %>
         </div>
@@ -57,21 +61,17 @@
         </noscript>
         <div class="notice"><p><%= flash[:notice] %></p></div>
         <div class="error"><p><%= flash[:error] %></p></div>
-
         <%= yield %>
-
-	  </div>
-	  <div id="rightcolumn">
-		
-	    Right Column
-		
-	  </div>
-	  <div id="footer">
-		
-		This is the Footer		
-		
+      </div>
+	  <div id="rightcolumn" class="grid_3">
+        Right Column
 	  </div>
     </div>
+	<div id="footer" class="container_12">
+	  <div class="grid_12">
+	    This is the Footer
+	  </div>
+	</div>
     <%- javascript_tag do -%>
       justifyHeight();
     <%- end -%>

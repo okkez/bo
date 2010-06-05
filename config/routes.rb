@@ -12,10 +12,12 @@ ActionController::Routing::Routes.draw do |map|
   # This route can be invoked with purchase_url(:id => product.id)
   map.templates 'events/templates', :controller => 'events', :action => 'templates'
   map.new_template 'events/template/new', :controller => 'events', :action => 'new_template'
+  map.events 'events/:year/:month', :controller => 'events', :action => 'index',
+  :year => /\d{4}/, :month => /[01][0-9]/
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products
-  map.resources :events
+  map.resources :events, :collection => { :simple => :get }, :exclude => [:index]
 
   # Sample resource route with options:
   #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }

@@ -22,6 +22,22 @@ describe EventsController do
     end
   end
 
+  describe "GET 'simple'" do
+    describe "by anonymous user" do
+      before{ get 'simple' }
+      it{ response.should be_success }
+      it{ response.should render_template("index") }
+    end
+    describe "by user" do
+      before do
+        login_as(@user)
+        get 'simple'
+      end
+      it{ response.should be_success }
+      it{ response.should render_template("index") }
+    end
+  end
+
   describe "GET 'templates'" do
     describe "by anonymous user" do
       before{ get 'templates' }

@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
 
-  before_filter :authentication_required, :except => [:index]
+  before_filter :authentication_required, :except => [:index, :simple]
   before_filter :prepare_json, :only => [:create, :update]
   before_filter :prepare, :only => [:show, :edit, :update]
 
@@ -8,11 +8,36 @@ class EventsController < ApplicationController
   def index
     user = current_user
     if user
+      if params[:year] && params[:month]
+        date = Date.new(params[:year].to_i, params[:month].to_i, 1)
+      else
+        date = Date.today
+      end
+      first = date.beginning_of_month
+      last  = date.end_of_month
+      @prev = first - 1
+      @next = last + 1
+      @events = user.events(:order => 'spent_on ASC').
+        tagged_with('template', :exclude => true).
+        paginate(:page => params[:page], :per_page => 100,
+                 :conditions => ["spent_on BETWEEN ? AND ?", first, last])
+    else
+      @events = [].paginate(:page => params[:page])
+    end
+  end
+
+  # GET simple_events_path
+  def simple
+    user = current_user
+    if user
       @events = user.events(:order => 'spent_on ASC').
         tagged_with('template', :exclude => true).
         paginate(:page => params[:page], :per_page => 50)
     else
       @events = [].paginate(:page => params[:page])
+    end
+    respond_to do |format|
+      format.html{ render :action => 'index' }
     end
   end
 

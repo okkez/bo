@@ -4,8 +4,8 @@
   <h1>テンプレート一覧</h1>
 <% end -%>
 <p>
-  <%= link_to '前月', events_path(:year => @prev.year, :month => ("%02d" % @prev.month)) %>
-  <%= link_to '次月', events_path(:year => @next.year, :month => ("%02d" % @next.month)) %>
+  <%= link_to '前月', monthly_events_path(:year => @prev.year, :month => ("%02d" % @prev.month)) %>
+  <%= link_to '次月', monthly_events_path(:year => @next.year, :month => ("%02d" % @next.month)) %>
 </p>
 <p><%= will_paginate @events %></p>
 

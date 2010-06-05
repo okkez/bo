@@ -301,4 +301,12 @@ describe EventsController do
     end
   end
 
+  describe "routes" do
+    it{
+      { :get => '/events/2010/05' }.should route_to(:controller => 'events',
+                                                    :action => 'index',
+                                                    :year => '2010', :month => '05')
+    }
+  end
+
 end

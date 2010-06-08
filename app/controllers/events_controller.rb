@@ -9,12 +9,12 @@ class EventsController < ApplicationController
     user = current_user
     if user
       if params[:year] && params[:month]
-        date = Date.new(params[:year].to_i, params[:month].to_i, 1)
+        @date = Date.new(params[:year].to_i, params[:month].to_i, 1)
       else
-        date = Date.today
+        @date = Date.today
       end
-      first = date.beginning_of_month
-      last  = date.end_of_month
+      first = @date.beginning_of_month
+      last  = @date.end_of_month
       @prev = first - 1
       @next = last + 1
       @events = user.events(:order => 'spent_on ASC').

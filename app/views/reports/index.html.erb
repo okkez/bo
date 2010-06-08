@@ -1,11 +1,15 @@
-<%- @title = "検索" -%>
+<%- @title = "レポート" -%>
+<%= render :partial => "form" %>
 
-<%- form_tag(:controller => "reports", :action => "search") do -%>
-  <div>
-    <%= text_field_tag :first, params[:first] %> - <%= text_field_tag :last, params[:last] %>
-    <%= submit_tag "検索" %>
-  </div>
-<%- end -%>
+<p>
+  <%= link_to '前月', monthly_reports_path(:year => @prev.year, :month => ("%02d" % @prev.month)) %>
+  <%= link_to '次月', monthly_reports_path(:year => @next.year, :month => ("%02d" % @next.month)) %>
+</p>
+<p>
+  <%= link_to '今月のイベント一覧', monthly_events_path(:year => @date.year, :month => ("%02d" % @date.month)) %>
+</p>
+
+<%= render :partial => "report" %>
 
 <%- content_for :script do -%>
   $("#first, #last").datepicker({ dateFormat: "yy-mm-dd" });

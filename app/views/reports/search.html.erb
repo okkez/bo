@@ -1,25 +1,7 @@
 <%- @title = "レポート" -%>
-<%- form_tag(:controller => "reports", :action => "search") do -%>
-  <div>
-    <%= text_field_tag :first, params[:first] %> - <%= text_field_tag :last, params[:last] %>
-    <%= submit_tag "検索" %>
-  </div>
-<%- end -%>
+<%= render :partial => "form" %>
 
-<table class="reports">
-  <thead>
-    <tr><th>タグ</th><th>入金</th><th>出金</th></tr>
-  </thead>
-  <tbody>
-    <%- @keywords.each do |key| -%>
-      <tr>
-        <td class="tag"><%=h key %></td>
-        <td class="founds-in" ><%= number_with_delimiter(@report[key][:founds_in], :delimiter => ",") %></td>
-        <td class="founds-out" ><%= number_with_delimiter(@report[key][:founds_out], :delimiter => ",") %></td>
-      </tr>
-    <%- end -%>
-  </tbody>
-</table>
+<%= render :partial => "report" %>
 
 <%- content_for :script do -%>
   $("#first, #last").datepicker({ dateFormat: "yy-mm-dd" });

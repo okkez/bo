@@ -154,6 +154,13 @@ span.tag a {
   text-decoration: none;
 }
 
+a#home {
+  background-image: url(/images/go-home.png);
+  background-repeat: no-repeat;
+  padding: 2.5px 0px 2.5px 16px;
+  text-decoration: none;
+}
+
 a#previous-month {
   background-image: url(/images/go-previous.png);
   background-repeat: no-repeat;

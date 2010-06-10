@@ -50,10 +50,12 @@ img {
 }
 #navigation li {
   display: inline;
+  margin-left: 0px;
 }
 #navigation a {
   color: white;
   text-decoration: none;
+  padding: 2.5px 0px 2.5px 0px;
 }
 #navigation a:hover {
   color: #3A5FCD;
@@ -149,6 +151,21 @@ span.tag:hover {
   background-color: #F0FFFF;
 }
 span.tag a {
+  text-decoration: none;
+}
+
+a#previous-month {
+  background-image: url(/images/go-previous.png);
+  background-repeat: no-repeat;
+  padding: 0px 0px 0px 16px;
+  text-decoration: none;
+}
+
+a#next-month {
+  background-image: url(/images/go-next.png);
+  background-repeat: no-repeat;
+  background-position: right;
+  padding: 0px 16px 0px 0px;
   text-decoration: none;
 }
 

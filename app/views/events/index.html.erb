@@ -5,8 +5,8 @@
 <%- end -%>
 <%- if logged_in? -%>
 <p>
-  <%= link_to '前月', monthly_events_path(:year => @prev.year, :month => ("%02d" % @prev.month)) %>
-  <%= link_to '次月', monthly_events_path(:year => @next.year, :month => ("%02d" % @next.month)) %>
+  <%= link_to '前月', monthly_events_path(:year => @prev.year, :month => ("%02d" % @prev.month)), :id => "previous-month" %>
+  <%= link_to '次月', monthly_events_path(:year => @next.year, :month => ("%02d" % @next.month)), :id => "next-month" %>
 </p>
 <p>
   <%= link_to '今月のレポート', monthly_reports_path(:year => @date.year, :month => ("%02d" % @date.month)) %>

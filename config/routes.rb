@@ -14,10 +14,12 @@ ActionController::Routing::Routes.draw do |map|
   :year => /\d{4}/, :month => /[01][0-9]/
   map.monthly_reports 'reports/:year/:month', :controller => 'reports', :action => 'index',
   :year => /\d{4}/, :month => /[01][0-9]/
+  map.settings 'settings', :controller => 'settings', :action => 'index'
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products
   map.resources :events, :collection => { :simple => :get }
+  map.resources :reports, :only => [:index], :collection => { :search => :post }
 
   # Sample resource route with options:
   #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }

@@ -160,6 +160,42 @@ a#home {
   padding: 2.5px 0px 2.5px 16px;
   text-decoration: none;
 }
+a#new-event {
+  background-image: url(/images/document-new.png);
+  background-repeat: no-repeat;
+  padding: 2.5px 0px 2.5px 16px;
+  text-decoration: none;
+}
+a#report {
+  background-image: url(/images/report.png);
+  background-repeat: no-repeat;
+  padding: 2.5px 0px 2.5px 16px;
+  text-decoration: none;
+}
+a#template {
+  background-image: url(/images/folder-documents.png);
+  background-repeat: no-repeat;
+  padding: 2.5px 0px 2.5px 16px;
+  text-decoration: none;
+}
+a#new-template {
+  background-image: url(/images/bookmark-new.png);
+  background-repeat: no-repeat;
+  padding: 2.5px 0px 2.5px 16px;
+  text-decoration: none;
+}
+a#settings {
+  background-image: url(/images/system-users.png);
+  background-repeat: no-repeat;
+  padding: 2.5px 0px 2.5px 16px;
+  text-decoration: none;
+}
+a#logout {
+  background-image: url(/images/system-log-out.png);
+  background-repeat: no-repeat;
+  padding: 2.5px 0px 2.5px 16px;
+  text-decoration: none;
+}
 
 a#previous-month {
   background-image: url(/images/go-previous.png);

@@ -40,12 +40,12 @@
 	    <ul>
           <li><%= link_to 'Home', root_path, :id => "home" %></li>
           <%- if logged_in? -%>
-            <li><%= link_to 'New Event', new_event_path %></li>
-            <li><%= link_to 'Reports', :controller => "/reports" %></li>
-            <li><%= link_to 'Templates', templates_path %></li>
-            <li><%= link_to 'New Template', new_template_path %></li>
-            <li><%= link_to 'Settings', :controller => "/settings" %></li>
-            <li><%= link_to 'Logout', { :controller => '/auth', :action => 'logout' }, :method => :post %></li>
+            <li><%= link_to 'New Event', new_event_path, :id => "new-event" %></li>
+            <li><%= link_to 'Reports', reports_path, :id => "report" %></li>
+            <li><%= link_to 'Templates', templates_path, :id => "template" %></li>
+            <li><%= link_to 'New Template', new_template_path, :id => "new-template" %></li>
+            <li><%= link_to 'Settings', settings_path, :id => "settings" %></li>
+            <li><%= link_to 'Logout', { :controller => '/auth', :action => 'logout' }, :method => :post, :id => "logout" %></li>
           <%- else -%>
             <li><%= link_to 'Signup', :controller => '/signup' %></li>
             <li><%= link_to 'Login', :controller => '/auth' %></li>

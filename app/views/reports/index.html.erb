@@ -6,7 +6,7 @@
   <%= link_to '次月', monthly_reports_path(:year => @next.year, :month => ("%02d" % @next.month)), :id => "next-month" %>
 </p>
 <p>
-  <%= link_to '今月のイベント一覧', monthly_events_path(:year => @date.year, :month => ("%02d" % @date.month)) %>
+  <%= link_to '今月のイベント一覧', monthly_events_path(:year => @date.year, :month => ("%02d" % @date.month)), :id => "monthly-event" %>
 </p>
 
 <%= render :partial => "report" %>

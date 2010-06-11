@@ -9,7 +9,7 @@
   <%= link_to '次月', monthly_events_path(:year => @next.year, :month => ("%02d" % @next.month)), :id => "next-month" %>
 </p>
 <p>
-  <%= link_to '今月のレポート', monthly_reports_path(:year => @date.year, :month => ("%02d" % @date.month)) %>
+  <%= link_to '今月のレポート', monthly_reports_path(:year => @date.year, :month => ("%02d" % @date.month)), :id => "monthly-report" %>
 </p>
 <%- end -%>
 

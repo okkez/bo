@@ -212,6 +212,19 @@ a#next-month {
   text-decoration: none;
 }
 
+a#monthly-report {
+  background-image: url(/images/report.png);
+  background-repeat: no-repeat;
+  padding: 2.5px 0px 2.5px 16px;
+  text-decoration: none;
+}
+a#monthly-event {
+  background-image: url(/images/calendar_view_month.png);
+  background-repeat: no-repeat;
+  padding: 2.5px 0px 2.5px 16px;
+  text-decoration: none;
+}
+
 a.add-item {
   background-image: url(/images/list-add.png);
   background-repeat: no-repeat;

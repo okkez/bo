@@ -3,7 +3,7 @@
 <%- if @_template -%>
   <h1>テンプレート一覧</h1>
 <%- end -%>
-<%- if logged_in? -%>
+<%- if logged_in? && !@_template -%>
 <p>
   <%= link_to '前月', monthly_events_path(:year => @prev.year, :month => ("%02d" % @prev.month)), :id => "previous-month" %>
   <%= link_to '次月', monthly_events_path(:year => @next.year, :month => ("%02d" % @next.month)), :id => "next-month" %>
